@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="6dp"
+    card_view:cardElevation="3dp"
+    card_view:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_prodlongname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="sans-serif-light"
+            android:gravity="center_horizontal"
+            android:textColor="@color/font_name"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/button_sub"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/text_prodlongname"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/buttonselector"
+            android:drawableLeft="@drawable/ic_action_previous_item"
+            android:textAllCaps="false"
+            android:textColor="@color/edit_normal" />
+
+        <TextView
+            android:id="@+id/text_amountstr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/button_sub"
+            android:layout_centerInParent="true"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/button_normal"
+            android:text="-12"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button_add"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@+id/text_prodlongname"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/buttonselector"
+            android:text="+12"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:textColor="@color/edit_normal" />
+
+        <TextView
+            android:id="@+id/text_packingname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_sub"
+            android:layout_centerInParent="true"
+            android:fontFamily="sans-serif-light"
+            android:textColor="@color/font_name"
+            android:text="полимер малый"
+            android:textSize="10sp"
+            android:layout_marginBottom="4dp"/>
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

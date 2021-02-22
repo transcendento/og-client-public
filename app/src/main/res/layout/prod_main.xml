@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.firstbreadclient.activity.ProdActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayoutProd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarLayoutProd"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/ExpandedAppBar"
+            app:collapsedTitleTextAppearance="@style/CollapsedAppBar"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <LinearLayout
+                android:id="@+id/layout_top_bar_order"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="40dp"
+                android:padding="5dip">
+
+                <TextView
+                    android:id="@+id/TextViewKodProd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="10170"
+                    android:textColor="@color/button_normal"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/text_cntnamestr_prod"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/edit_normal"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/text_cntadres_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="ул.Энтузиастов, д.12, м-н Золотая подкова 11111111111 1111111111111"
+                    android:textColor="@color/edit_normal"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/TextViewTimeProd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Заявка на 09.09.2019 08:30"
+                    android:textColor="@color/button_normal"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <include layout="@layout/collapse_toolbar" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_prod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="8dp"
+        app:srcCompat="@android:drawable/ic_dialog_email"
+        app:useCompatPadding="true" />
+
+    <include layout="@layout/prod_content" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

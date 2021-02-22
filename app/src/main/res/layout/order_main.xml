@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.firstbreadclient.activity.OrderActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/orderAppBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/CollapsingToolbarLayoutOrder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleTextAppearance="@style/ExpandedAppBar"
+            app:collapsedTitleTextAppearance="@style/CollapsedAppBar"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <LinearLayout
+                android:id="@+id/layout_top_bar_order"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical"
+                android:layout_gravity="bottom"
+                android:layout_marginTop="40dp"
+                android:padding="5dip">
+
+                <TextView
+                    android:id="@+id/text_notes_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/button_normal"
+                    android:textSize="16sp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/TextViewKodProd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="10170"
+                    android:textColor="@color/button_normal"
+                    android:textSize="17sp"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/TextViewCntNameStrOrder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="ИП Быков Эдуард Викторович"
+                    android:textColor="@color/edit_normal"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/TextViewCntAdresOrder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="ул.Энтузиастов, д.12, м-н Золотая подкова"
+                    android:textColor="@color/edit_normal"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/TextViewDateOrder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:textColor="@color/edit_normal"
+                    android:textSize="17sp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/collapse_toolbar" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/stat_notify_sync"
+        app:useCompatPadding="true" />
+
+    <include layout="@layout/order_content" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#f8c300</color>
+    <color name="colorPrimaryDark">#f8c300</color>
+    <color name="colorAccent">#e21204</color>
+    <color name="button_pressed">#AC1F19</color>
+    <color name="button_normal">#da251d</color>
+    <color name="focused_stroke">#e21204</color>
+    <color name="normal_stroke">#878787</color>
+    <color name="edit_normal">#ffffff</color>
+    <color name="email">#2c32e7</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="change_item">#ffee82</color>
+    <color name="font_name">#000000</color>
+    <color name="translucent_grey">#88cccccc</color>
+</resources>
