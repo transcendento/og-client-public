@@ -16,7 +16,7 @@ import javax.net.ssl.TrustManagerFactory
 import javax.net.ssl.X509TrustManager
 
 internal object SelfSigningClientBuilder {
-    private const val CRT_URL = "https://order.1makfa.ru/order_1makfa_ru.crt"
+    private const val CRT_URL = "https://order.ru/order.crt"
 
     fun createClient(): OkHttpClient? {
         var okHttpClient: OkHttpClient? = null
