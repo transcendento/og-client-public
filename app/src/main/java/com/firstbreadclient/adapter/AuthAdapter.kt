@@ -5,18 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.firstbreadclient.R
 import com.firstbreadclient.adapter.AuthAdapter.AuthViewHolder
+import com.firstbreadclient.databinding.AuthRowBinding
 import com.firstbreadclient.model.data.Auth
 
-class AuthAdapter(context: Context?) : RecyclerView.Adapter<AuthViewHolder>() {
+class AuthAdapter(val clickListener: AuthListener) : ListAdapter<Auth, AuthAdapter.AuthViewHolder>(AuthDiffCallback()) {
     private var clickListener: ItemClickListener? = null
     private val mLayoutInflater: LayoutInflater = LayoutInflater.from(context)
-    private var mAuths: List<Auth> = emptyList() // Cached copy of words
+    private var mAuths: List<Auth> = emptyList()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AuthViewHolder {
-        val view = mLayoutInflater.inflate(R.layout.auth_row, parent, false)
-        return AuthViewHolder(view)
+        return AuthViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: AuthViewHolder, position: Int) {
@@ -24,6 +26,7 @@ class AuthAdapter(context: Context?) : RecyclerView.Adapter<AuthViewHolder>() {
         holder.cntKodText.text = current.cntkod
         holder.cntNameText.text = current.cntname
         holder.cntAdresText.text = current.cntadres
+        holder.bind(getItem(position)!!, clickListener)
     }
 
     fun setAuths(auths: List<Auth>) {
@@ -35,6 +38,7 @@ class AuthAdapter(context: Context?) : RecyclerView.Adapter<AuthViewHolder>() {
         return mAuths.size
     }
 
+/*
     fun setClickListener(itemClickListener: ItemClickListener?) {
         clickListener = itemClickListener
     }
@@ -51,5 +55,35 @@ class AuthAdapter(context: Context?) : RecyclerView.Adapter<AuthViewHolder>() {
             itemView.setOnClickListener(this)
         }
     }
+*/
 
+    class AuthViewHolder private constructor(val binding: AuthRowBinding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(item: Auth, clickListener: AuthListener) {
+            binding.auth = item
+            binding.clickListener = clickListener
+            binding.executePendingBindings()
+        }
+
+        companion object {
+            fun from(parent: ViewGroup): AuthViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = AuthRowBinding.inflate(layoutInflater, parent, false)
+                return AuthViewHolder(binding)
+            }
+        }
+    }
+}
+
+class AuthDiffCallback : DiffUtil.ItemCallback<Auth>() {
+    override fun areItemsTheSame(oldItem: Auth, newItem: Auth): Boolean {
+        return oldItem.cntid == newItem.cntid
+    }
+
+    override fun areContentsTheSame(oldItem: Auth, newItem: Auth): Boolean {
+        return oldItem == newItem
+    }
+}
+
+class AuthListener(val clickListener: (auth: Auth) -> Unit) {
+    fun onClick(auth: Auth) = clickListener(auth)
 }

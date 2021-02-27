@@ -1,20 +1,12 @@
 package com.firstbreadclient.room
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.firstbreadclient.model.data.Auth
 import com.firstbreadclient.model.data.Order
 import com.firstbreadclient.model.data.Prod
 import com.firstbreadclient.model.FirstRepository
 import kotlinx.coroutines.launch
 
-/**
- * View Model to keep a reference to the word repository and
- * an up-to-date list of all words.
- */
 class FirstViewModel(private val repository: FirstRepository) : ViewModel() {
     // Using LiveData and caching what allWords returns has several benefits:
     // - We can put an observer on the data (instead of polling for changes) and only update the
@@ -24,9 +16,13 @@ class FirstViewModel(private val repository: FirstRepository) : ViewModel() {
     val allOrders: LiveData<List<Order>> = repository.allOrders.asLiveData()
     val allProds: LiveData<List<Prod>> = repository.allProds.asLiveData()
 
-    /**
-     * Launching a new coroutine to insert the data in a non-blocking way
-     */
+    private val mutableSelectedCntid = MutableLiveData<Auth>()
+    val selectedAuth: LiveData<Auth> get() = mutableSelectedCntid
+
+    fun selectAuth(auth: Auth) {
+        mutableSelectedCntid.value = auth
+    }
+
     fun insertAuth(auth: Auth) = viewModelScope.launch {
         repository.insertAuth(auth)
     }
