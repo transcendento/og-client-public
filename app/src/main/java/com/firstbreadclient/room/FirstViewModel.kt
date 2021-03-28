@@ -16,11 +16,26 @@ class FirstViewModel(private val repository: FirstRepository) : ViewModel() {
     val allOrders: LiveData<List<Order>> = repository.allOrders.asLiveData()
     val allProds: LiveData<List<Prod>> = repository.allProds.asLiveData()
 
-    private val mutableSelectedCntid = MutableLiveData<Auth>()
-    val selectedAuth: LiveData<Auth> get() = mutableSelectedCntid
+    private val mutableSelectedAuth = MutableLiveData<Auth>()
+    val selectedAuth: LiveData<Auth> get() = mutableSelectedAuth
+
+    private val mutableSelectedOrder = MutableLiveData<Order>()
+
+    private val _navigateToOrder = MutableLiveData<Auth?>()
+
+    val navigateToOrder: MutableLiveData<Auth?>
+        get() = _navigateToOrder
+
+    fun doneNavigating() {
+        _navigateToOrder.value = null
+    }
 
     fun selectAuth(auth: Auth) {
-        mutableSelectedCntid.value = auth
+        mutableSelectedAuth.value = auth
+    }
+
+    fun selectOrder(order: Order) {
+        mutableSelectedOrder.value = order
     }
 
     fun insertAuth(auth: Auth) = viewModelScope.launch {

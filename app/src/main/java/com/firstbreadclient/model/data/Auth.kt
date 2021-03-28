@@ -10,10 +10,4 @@ data class Auth(@field:SerializedName("cntid") @field:ColumnInfo(name = "cntid")
                 @field:SerializedName("cntkod") @field:ColumnInfo(name = "cntkod") var cntkod: String,
                 @field:SerializedName("cntname") @field:ColumnInfo(name = "cntname") var cntname: String,
                 @field:SerializedName("cntadres") @field:ColumnInfo(name = "cntadres") var cntadres: String,
-                @field:SerializedName("tokenall") @field:ColumnInfo(name = "tokenall") var tokenall: String) {
-/*
-    @ColumnInfo(name = "cntadres")
-    @SerializedName("cntadres")
-    var cntadres: String? = null
-*/
-}
+                @field:SerializedName("tokenall") @field:ColumnInfo(name = "tokenall") var tokenall: String)

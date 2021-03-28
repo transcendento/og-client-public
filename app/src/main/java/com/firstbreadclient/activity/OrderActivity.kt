@@ -72,12 +72,12 @@ class OrderActivity : AppCompatActivity(), ItemClickListener, InternetConnection
         mOrderDate.text = "$orderDate $cntKod"
 
         val mRecyclerView = findViewById<RecyclerView>(R.id.RecyclerViewOrder)
-        val orderAdapter = OrderAdapter(this)
+        //val orderAdapter = OrderAdapter(this)
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this@OrderActivity)
         mRecyclerView.layoutManager = layoutManager
-        mRecyclerView.adapter = orderAdapter
+        //mRecyclerView.adapter = orderAdapter
 
-        orderAdapter.setClickListener(this)
+        //orderAdapter.setClickListener(this)
 
         mService = RetrofitInstance.retrofitInstance?.create(GetDataService::class.java)
 
@@ -91,10 +91,10 @@ class OrderActivity : AppCompatActivity(), ItemClickListener, InternetConnection
         // in the foreground.
         // Update the cached copy of the words in the adapter.
         //mOrderViewModel!!.allOrders.observe(this, Observer { orders: List<Order> -> orderAdapter.setOrders(orders) })
-        firstViewModel.allOrders.observe(owner = this) { orders ->
+        /*firstViewModel.allOrders.observe(owner = this) { orders ->
             // Update the cached copy of the words in the adapter.
             orders.let { orderAdapter.setOrders(it) }
-        }
+        }*/
 
         val fabOrder = findViewById<FloatingActionButton>(R.id.fab_order)
         fabOrder.setOnClickListener { orderData }

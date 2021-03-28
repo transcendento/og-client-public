@@ -5,7 +5,6 @@
     tools:context="com.firstbreadclient.activity.fragment.AuthFragment">
 
     <data>
-
         <variable
             name="firstViewModel"
             type="com.firstbreadclient.room.FirstViewModel" />

@@ -8,12 +8,7 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.observe
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.firstbreadclient.R
-import com.firstbreadclient.adapter.AuthAdapter
-import com.firstbreadclient.adapter.ItemClickListener
 import com.firstbreadclient.eventbus.NetworkEvent
 import com.firstbreadclient.firebase.FirebaseFunctionUtils
 import com.firstbreadclient.firebase.OnGetServerTime
@@ -36,10 +31,11 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 import javax.inject.Inject
+import androidx.lifecycle.Observer
 
-class AuthActivity : AppCompatActivity(), ItemClickListener, InternetConnectionListener, AuthenticationListener, AuthView {
+class AuthActivity : AppCompatActivity(), InternetConnectionListener, AuthenticationListener, AuthView {
     private var mDataBundle: Bundle? = null
-    private var mAuthList: ArrayList<Auth?>? = null
+    private var authList: ArrayList<Auth?>? = null
     private var mAuthViewModel: FirstModel? = null
 
     private val firstViewModel: FirstViewModel by viewModels {
@@ -108,11 +104,11 @@ class AuthActivity : AppCompatActivity(), ItemClickListener, InternetConnectionL
 
 
 
-        //OkHttpClientInstance.getSession()?.saveCntkod("10171")
-        //OkHttpClientInstance.getSession()?.savePassword("1017")
+        OkHttpClientInstance.getSession()?.saveCntkod("1986")
+        OkHttpClientInstance.getSession()?.savePassword("8273")
 
-        OkHttpClientInstance.getSession()?.saveCntkod("1158")
-        OkHttpClientInstance.getSession()?.savePassword("1111")
+        //OkHttpClientInstance.getSession()?.saveCntkod("1158")
+        //OkHttpClientInstance.getSession()?.savePassword("1111")
 
         authPresenter.authToken()
 
@@ -130,6 +126,9 @@ class AuthActivity : AppCompatActivity(), ItemClickListener, InternetConnectionL
         }
 */
 
+        firstViewModel.selectedAuth.observe(this, Observer { auth ->
+            onClickAuth(auth)
+        })
 
         val fabAuth = findViewById<FloatingActionButton>(R.id.FloatingActionButtonAuth)
         fabAuth.setOnClickListener {
@@ -240,18 +239,17 @@ class AuthActivity : AppCompatActivity(), ItemClickListener, InternetConnectionL
         }
 */
 
-    override fun onClick(view: View?, position: Int) {
-        val auth = mAuthList!![position]
+    fun onClickAuth(auth: Auth) {
         val intent = Intent(this, OrderActivity::class.java)
-        mDataBundle!!.putString("cntkod", auth?.cntkod)
+        mDataBundle!!.putString("cntkod", auth.cntkod)
         mDataBundle!!.putString("orderdate", mDateOrder)
 
-        intent.putExtra("cntid", auth?.cntid)
-        intent.putExtra("cntkod", auth?.cntkod)
-        intent.putExtra("cntname", auth?.cntname)
-        intent.putExtra("cntadres", auth?.cntadres)
+        intent.putExtra("cntid", auth.cntid)
+        intent.putExtra("cntkod", auth.cntkod)
+        intent.putExtra("cntname", auth.cntname)
+        intent.putExtra("cntadres", auth.cntadres)
         intent.putExtra("orderdate", mDateOrder)
-        auth?.cntkod?.let { Log.i("cntkod", it) }
+        auth.cntkod.let { Log.i("cntkod", it) }
         startActivity(intent, mDataBundle)
     }
 
@@ -266,8 +264,8 @@ class AuthActivity : AppCompatActivity(), ItemClickListener, InternetConnectionL
     }
 
     override fun updateAuthUi(authList: ArrayList<Auth?>?) {
-        mAuthList = authList
-        for (auth in mAuthList!!) {
+        this.authList = authList
+        for (auth in this.authList!!) {
             if (auth != null) {
                 firstViewModel.insertAuth(auth)
             }

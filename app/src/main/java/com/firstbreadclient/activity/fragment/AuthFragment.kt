@@ -1,15 +1,15 @@
 package com.firstbreadclient.activity.fragment
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firstbreadclient.R
@@ -23,33 +23,47 @@ import com.firstbreadclient.room.FirstViewModelFactory
 class AuthFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        val binding: AuthFragmentBinding = DataBindingUtil.inflate(inflater,
-                R.layout.auth_fragment, container, false)
 
-        val application = requireNotNull(this.activity).application
+        try {
+            val bindingAuthFragment: AuthFragmentBinding = DataBindingUtil.inflate(inflater,
+                    R.layout.auth_fragment, container, false)
 
-        val viewModelFactory = FirstViewModelFactory((application as FirstApplication).repository)
+            val application = requireNotNull(this.activity).application
 
-        val firstViewModel = ViewModelProvider(
-                this, viewModelFactory).get(FirstViewModel::class.java)
+            val viewModelFactory = FirstViewModelFactory((application as FirstApplication).repository)
 
-        binding.firstViewModel = firstViewModel
+            val firstViewModel = ViewModelProvider(
+                    this, viewModelFactory).get(FirstViewModel::class.java)
 
-        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this.activity)
-        binding.recyclerViewAuth.layoutManager = layoutManager
+            bindingAuthFragment.firstViewModel = firstViewModel
 
-        val authAdapter = AuthAdapter(AuthListener {  })
-        binding.recyclerViewAuth.adapter = authAdapter
+            val authAdapter = AuthAdapter(AuthListener { auth -> firstViewModel.selectAuth(auth) })
+            bindingAuthFragment.recyclerViewAuth.adapter = authAdapter
 
-        binding.lifecycleOwner = this
+            bindingAuthFragment.lifecycleOwner = this
 
-        firstViewModel.allAuths.observe(viewLifecycleOwner, Observer {
-            it.let { authAdapter.setAuths(it) }
-        })
+            firstViewModel.allAuths.observe(viewLifecycleOwner, {
+                it.let { authAdapter.submitList(it) }
+            })
 
+            firstViewModel.navigateToOrder.observe(viewLifecycleOwner, { auth ->
+                auth.let {
+                    if (auth != null) {
+                        this.findNavController().navigate(AuthFragmentDirections.actionAuthFragmentToOrderFragment(auth.cntkod))
 
+                        firstViewModel.doneNavigating()
+                    }
+                }
+            })
 
+            val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this.activity)
+            bindingAuthFragment.recyclerViewAuth.layoutManager = layoutManager
 
-        return binding.root
+            return bindingAuthFragment.root
+
+        } catch (e: Exception) {
+            Log.e(TAG, "onCreateView", e)
+            throw e
+        }
     }
 }

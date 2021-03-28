@@ -1,63 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    card_view:cardCornerRadius="6dp"
-    card_view:cardElevation="3dp"
-    card_view:cardUseCompatPadding="true">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginBottom="5dp">
+    <data>
+        <variable
+            name="order"
+            type="com.firstbreadclient.model.data.Order" />
 
-    <LinearLayout
-        android:id="@+id/layout_time"
-        android:layout_width="fill_parent"
+        <variable
+            name="clickListener"
+            type="com.firstbreadclient.adapter.OrderListener" />
+
+        <variable
+            name="firstViewModel"
+            type="com.firstbreadclient.room.FirstViewModel" />
+
+    </data>
+
+    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="5dip">
+        card_view:cardCornerRadius="6dp"
+        card_view:cardElevation="3dp"
+        card_view:cardUseCompatPadding="true">
 
-        <TextView
-            android:id="@+id/text_delivery"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:textColor="@color/font_name"
-            android:text="@string/delivery"
-            android:textSize="16sp" />
+            android:onClick="@{() -> clickListener.onClickOrder(order)}">
 
-        <TextView
-            android:id="@+id/text_daysorderdate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:textColor="@color/button_normal"
-            android:textSize="24sp" />
+            <TextView
+                android:id="@+id/textViewOrderDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/font_name"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:orderDateText="@{order}"/>
 
-        <TextView
-            android:id="@+id/text_indname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:textColor="@color/font_name"
-            android:text="(МКИ)"
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/textViewFlagName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/button_normal"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textViewOrderDate"
+                app:layout_constraintTop_toBottomOf="@+id/textViewOrderDate"
+                app:orderFlagNameText="@{order}"/>
 
-    </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/doMoveFlagNameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:layout_below="@+id/layout_time"
-        android:paddingLeft="5dp"
-        android:textColor="@color/button_normal"
-        android:text="заявка не сохранена"
-        android:textSize="16sp" />
+    </androidx.cardview.widget.CardView>
 
-    </RelativeLayout>
-
-</androidx.cardview.widget.CardView>
+</layout>

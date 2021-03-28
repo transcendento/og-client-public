@@ -71,8 +71,8 @@ class AuthPresenter @Inject constructor(private var authInteractor: AuthInteract
     }
 
     fun authData() {
-        //val tokenAll = "849e440963ccbbce71f41a23e59325e7"
-        val tokenAll = "82fcf9f268616f634c45ce9e71b4bafa"
+        val tokenAll = "c25517f97a8f410b46b05effb789a4e2"
+        //val tokenAll = "82fcf9f268616f634c45ce9e71b4bafa"
 
         val jwt = OkHttpClientInstance.getSession()?.getToken()
 
