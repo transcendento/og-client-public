@@ -43,15 +43,17 @@ class AuthFragment : Fragment() {
             bindingAuthFragment.lifecycleOwner = this
 
             firstViewModel.allAuths.observe(viewLifecycleOwner, {
-                it.let { authAdapter.submitList(it) }
+                it.let {
+                    authAdapter.submitList(it)
+                }
             })
 
-            firstViewModel.navigateToOrder.observe(viewLifecycleOwner, { auth ->
+            firstViewModel.selectedAuth.observe(viewLifecycleOwner, { auth ->
                 auth.let {
                     if (auth != null) {
                         this.findNavController().navigate(AuthFragmentDirections.actionAuthFragmentToOrderFragment(auth.cntkod))
 
-                        firstViewModel.doneNavigating()
+                        firstViewModel.doneSelectAuth()
                     }
                 }
             })

@@ -10,7 +10,6 @@ import com.firstbreadclient.network.security.Session
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Interceptor
 import okhttp3.Request
@@ -36,15 +35,17 @@ class AuthorizationInterceptor(private val mSession: Session) : Interceptor {
                 val uiResultObservable = Observable.combineLatest(
                         userNameObservable,
                         passwordObservable,
-                        BiFunction<String?, String?, UIEvent> { cntkod: String?, password: String? -> UIEvent(cntkod, password) })
+                        { cntkod: String?, password: String? -> UIEvent(cntkod, password) })
 
                 val loginObservable = uiResultObservable
                         .flatMap { log: UIEvent ->
                             mSession.getService()!!.signin(Registration(log.cntkod, log.password))!!
                                     .subscribeOn(Schedulers.io())
-                                    .map { n: Authorization -> if (n.tokenType == "Bearer")
-                                        return@map LoginResult(false, n.accessToken) else
-                                        return@map LoginResult(true, "Ошибка авторизации") }
+                                    .map { n: Authorization ->
+                                        if (n.tokenType == "Bearer")
+                                            return@map LoginResult(false, n.accessToken) else
+                                            return@map LoginResult(true, "Ошибка авторизации")
+                                    }
                                     .onErrorReturnItem(LoginResult(true, "Сетевая ошибка"))
                         }
                         .observeOn(AndroidSchedulers.mainThread())
@@ -54,8 +55,10 @@ class AuthorizationInterceptor(private val mSession: Session) : Interceptor {
                         OkHttpClientInstance.getSession()?.invalidate()
                     } else {
                         OkHttpClientInstance.getSession()?.saveToken("Bearer " + be.message)
-                        val builder = mSession.getToken()?.let { mRequest!!.newBuilder()
-                                .header("Authorization", it).method(mRequest!!.method, mRequest!!.body) }
+                        val builder = mSession.getToken()?.let {
+                            mRequest!!.newBuilder()
+                                    .header("Authorization", it).method(mRequest!!.method, mRequest!!.body)
+                        }
                         mResponse = chain.proceed(builder!!.build())
                     }
                 })

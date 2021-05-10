@@ -45,5 +45,6 @@ class AuthDiffCallback : DiffUtil.ItemCallback<Auth>() {
 }
 
 class AuthListener(val clickListener: (auth: Auth) -> Unit) {
-    fun onClickAuth(auth: Auth) = clickListener(auth)
+    fun onClickAuth(auth: Auth) =
+            clickListener(auth)
 }

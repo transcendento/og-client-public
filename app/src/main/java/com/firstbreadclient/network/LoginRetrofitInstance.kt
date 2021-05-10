@@ -8,15 +8,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object LoginRetrofitInstance {
     private var sRetrofit: Retrofit? = null
-    private const val BASE_URL = "http://192.168.57.60:9090/"
-    //private const val BASE_URL = "http://10.0.2.2:9090/"
+    //private const val BASE_URL = "http://192.168.57.60:9090/"
+    private const val BASE_URL = "http://10.0.2.2:9090/"
 
     val retrofitInstance: Retrofit?
         get() {
             if (sRetrofit == null) {
                 val interceptor = HttpLoggingInterceptor()
                 interceptor.level = HttpLoggingInterceptor.Level.BODY
-                //val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
                 sRetrofit = Retrofit.Builder()
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

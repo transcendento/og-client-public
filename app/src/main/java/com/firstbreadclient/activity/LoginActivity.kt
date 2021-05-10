@@ -21,11 +21,9 @@ import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-//public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 class LoginActivity : AppCompatActivity() {
     private var mLoginLayout: TextInputLayout? = null
     private var mPasswordLayout: TextInputLayout? = null
@@ -70,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
 
         val uiResultObservable = Observable.combineLatest(
                 userNameObservable,
-                passwordObservable, BiFunction<String, String, UIEvent> { cntkod: String?, password: String? -> UIEvent(cntkod, password) })
+                passwordObservable, { cntkod: String?, password: String? -> UIEvent(cntkod, password) })
 
         mEditCompositeDisposable.add(
                 uiResultObservable.subscribe { ui: UIEvent ->
@@ -88,12 +86,14 @@ class LoginActivity : AppCompatActivity() {
                 }
         )
         val loginObservable = RxView.clicks(mLoginButton!!)
-                .flatMap { _: Any? ->
+                .flatMap {
                     mService!!.signin(Registration(mCntkodEdit!!.text.toString(), mPasswordEdit!!.text.toString()))!!
                             .subscribeOn(Schedulers.io())
-                            .map { n: Authorization -> if (n.tokenType == "Bearer")
-                                return@map LoginResult(false, "") else
-                                return@map LoginResult(true, "Неверный пароль!") }
+                            .map { n: Authorization ->
+                                if (n.tokenType == "Bearer")
+                                    return@map LoginResult(false, "") else
+                                    return@map LoginResult(true, "Неверный пароль!")
+                            }
                             .onErrorReturnItem(LoginResult(true, "Сетевая ошибка"))
                 }
                 .observeOn(AndroidSchedulers.mainThread())
@@ -117,75 +117,5 @@ class LoginActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    } /*    private void userLogin() {
-        String cntKod = mCntkodEdit.getText().toString().trim();
-        String password = mPasswordEdit.getText().toString().trim();
-
-        if (cntKod.isEmpty()) {
-            mCntkodEdit.setError("Введите код клиента");
-            mCntkodEdit.requestFocus();
-            return;
-        }
-
-        if (password.length() < 4) {
-            mPasswordEdit.setError("Код клиента должен быть не менее 4 символов");
-            mPasswordEdit.requestFocus();
-            return;
-        }
-
-        if (password.isEmpty()) {
-            mPasswordEdit.setError("Введите пароль");
-            mPasswordEdit.requestFocus();
-            return;
-        }
-
-        if (password.length() < 4) {
-            mPasswordEdit.setError("Пароль должен быть не менее 4 символов");
-            mPasswordEdit.requestFocus();
-            return;
-        }
-
-        Registration registration = new Registration(cntKod, password);
-
-
-        Call<Authorization> call = mService.loginAccount(registration);
-
-        call.enqueue(new Callback<Authorization>() {
-            @Override
-            public void onResponse(Call<Authorization> call, Response<Authorization> response) {
-                Authorization loginResponse = response.body();
-
-                if (!response.isSuccessful()) {
-                    if (response.code() != 401 || response.code() != 403) {
-                        OkHttpClientInstance.getSession().saveCntkod(cntKod);
-                        OkHttpClientInstance.getSession().savePassword(password);
-                        OkHttpClientInstance.getSession().saveCntkod(loginResponse.getAccessToken());
-
-                    } else {
-                        Snackbar.make(mParentLayout, getResources().getString(R.string.auth_fail), Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                    }
-                } else {
-                    Snackbar.make(mParentLayout, getResources().getString(R.string.conn_fail), Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Authorization> call, Throwable t) {
-                Log.e("Error message", t.getMessage());
-                Toast.makeText(LoginActivity.this, "Something went wrong...Error message: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
     }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ButtonLogin:
-                userLogin();
-                break;
-        }
-    }*/
 }

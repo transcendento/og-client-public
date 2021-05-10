@@ -44,6 +44,6 @@ class OrderDiffCallback : DiffUtil.ItemCallback<Order>() {
     }
 }
 
-class OrderListener(val clickListener: (Order: Order) -> Unit) {
-    fun onClickOrder(Order: Order) = clickListener(Order)
+class OrderListener(val clickListener: (order: Order) -> Unit) {
+    fun onClickOrder(order: Order) = clickListener(order)
 }

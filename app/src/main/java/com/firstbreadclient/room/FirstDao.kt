@@ -20,9 +20,6 @@ import kotlinx.coroutines.flow.Flow
  */
 @Dao
 interface FirstDao {
-
-    // The flow always holds/caches latest version of data. Notifies its observers when the
-    // data has changed.
     @Query("SELECT * from auth_table ORDER BY cntkod ASC")
     fun getAlphabetizedAuths(): Flow<List<Auth>>
 

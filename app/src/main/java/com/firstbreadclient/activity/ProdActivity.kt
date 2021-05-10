@@ -38,7 +38,6 @@ class ProdActivity : AppCompatActivity(), InternetConnectionListener {
     private var mDataBundle: Bundle? = null
     private var mProdList: ArrayList<Prod?>? = null
     private var mService: GetDataService? = null
-    //private var mProdViewModel: RoomModel? = null
 
     private val firstViewModel: FirstViewModel by viewModels {
         FirstViewModelFactory((application as FirstApplication).repository)
@@ -78,18 +77,6 @@ class ProdActivity : AppCompatActivity(), InternetConnectionListener {
 
         prodData
 
-        // Get a new or existing ViewModel from the ViewModelProvider.
-        //mProdViewModel = ViewModelProviders.of(this).get(RoomModel::class.java)
-
-        // Add an observer on the LiveData returned by getAlphabetizedWords.
-        // The onChanged() method fires when the observed data changes and the activity is
-        // in the foreground.
-/*
-        mProdViewModel!!.allProds.observe(this, Observer { prods: List<Prod> ->
-            // Update the cached copy of the words in the adapter.
-            mProdAdapter!!.setProds(prods)
-        })
-*/
         firstViewModel.allProds.observe(owner = this) { prods ->
             // Update the cached copy of the words in the adapter.
             prods.let { prodAdapter!!.setProds(it) }

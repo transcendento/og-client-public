@@ -1,9 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlinVersion = '1.4.30'
+    ext.kotlinVersion = '1.5.0'
     ext.navigationVersion = '2.3.4'
-    ext.gradleVersion = '4.1.2'
+    ext.gradleVersion = '4.2.0'
     ext.dataBindingCompilerVersion = gradleVersion
 
     ext {
@@ -17,7 +17,7 @@ buildscript {
     }
     repositories {
         google()
-        jcenter()
+        mavenCentral()
 
     }
     dependencies {
@@ -34,7 +34,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
 
     }
 }
@@ -44,10 +44,10 @@ task clean(type: Delete) {
 }
 
 ext {
-    activityVersion = '1.2.1'
-    roomVersion = '2.2.6'
-    lifecycleVersion = '2.3.0'
-    daggerVersion = '2.20'
+    activityVersion = '1.2.3'
+    roomVersion = '2.3.0'
+    lifecycleVersion = '2.3.1'
+    daggerVersion = '2.28.3'
     junitVersion = '4.13.1'
     espressoVersion = '3.3.0'
     coreTestingVersion = '2.1.0'

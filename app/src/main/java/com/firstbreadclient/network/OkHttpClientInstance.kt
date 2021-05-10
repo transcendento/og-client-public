@@ -82,9 +82,6 @@ object OkHttpClientInstance {
         mService = service
     }
 
-    // use a storage option to store the
-    // credentails and user info
-    // i.e: SQLite, SharedPreference etc.
     fun getSession(): Session? {
         if (mSession == null) {
             mSession = object : Session {
@@ -93,9 +90,6 @@ object OkHttpClientInstance {
                 }
 
                 override fun isLoggedIn(): Boolean {
-                    // check if token exist or not
-                    // return true if exist otherwise false
-                    // assuming that token exists
                     val isLogged = SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)?.token == ""
                     return !isLogged
                 }
@@ -125,13 +119,6 @@ object OkHttpClientInstance {
                 }
 
                 override fun invalidate() {
-                    // get called when user become logged out
-                    // delete token and other user info
-                    // (i.e: email, password)
-                    // from the storage
-
-                    // sending logged out event to it's listener
-                    // i.e: Activity, Fragment, Service
                     if (mAuthenticationListener != null) {
                         mAuthenticationListener!!.onUserLoggedOut()
                     }

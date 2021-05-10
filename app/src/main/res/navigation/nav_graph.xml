@@ -23,9 +23,26 @@
         android:label="order_fragment"
         tools:layout="@layout/order_fragment">
 
+        <action
+            android:id="@+id/action_orderFragment_to_prodFragment"
+            app:destination="@id/prodFragment" />
+
         <argument
             android:name="cntkod"
             app:argType="string" />
 
     </fragment>
+
+    <fragment
+        android:id="@+id/prodFragment"
+        android:name="com.firstbreadclient.activity.fragment.ProdFragment"
+        android:label="prod_fragment"
+        tools:layout="@layout/prod_fragment">
+
+        <argument
+            android:name="daysordermoveidstr"
+            app:argType="string" />
+
+    </fragment>
+
 </navigation>

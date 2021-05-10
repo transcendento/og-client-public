@@ -44,11 +44,7 @@ class AuthPresenter @Inject constructor(private var authInteractor: AuthInteract
                     authInteractor.signin(Registration(log.cntkod, log.password))!!
                             .subscribeOn(Schedulers.io())
                             .map { author: Authorization ->
-/*
-                                if (author.tokenType == "Bearer")
-                                    return@map LoginResult(false, author.accessToken) else
-                                    return@map LoginResult(true, "Ошибка авторизации")
-*/
+
                                 when (author.tokenType) {
                                     "Bearer" -> LoginResult(false, author.accessToken)
                                     else -> LoginResult(true, "Ошибка авторизации")
@@ -71,8 +67,7 @@ class AuthPresenter @Inject constructor(private var authInteractor: AuthInteract
     }
 
     fun authData() {
-        val tokenAll = "c25517f97a8f410b46b05effb789a4e2"
-        //val tokenAll = "82fcf9f268616f634c45ce9e71b4bafa"
+        val tokenAll = "25d55ad283aa400af464c76d713c07ad"
 
         val jwt = OkHttpClientInstance.getSession()?.getToken()
 

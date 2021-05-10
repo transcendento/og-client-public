@@ -7,35 +7,31 @@ import com.firstbreadclient.model.data.Prod
 import com.firstbreadclient.model.FirstRepository
 import kotlinx.coroutines.launch
 
-class FirstViewModel(private val repository: FirstRepository) : ViewModel() {
-    // Using LiveData and caching what allWords returns has several benefits:
-    // - We can put an observer on the data (instead of polling for changes) and only update the
-    //   the UI when the data actually changes.
-    // - Repository is completely separated from the UI through the ViewModel.
+class  FirstViewModel(private val repository: FirstRepository) : ViewModel() {
     val allAuths: LiveData<List<Auth>> = repository.allAuths.asLiveData()
     val allOrders: LiveData<List<Order>> = repository.allOrders.asLiveData()
     val allProds: LiveData<List<Prod>> = repository.allProds.asLiveData()
 
-    private val mutableSelectedAuth = MutableLiveData<Auth>()
-    val selectedAuth: LiveData<Auth> get() = mutableSelectedAuth
+    private val mutableSelectedAuth = MutableLiveData<Auth?>()
+    val selectedAuth: LiveData<Auth?> get() = mutableSelectedAuth
 
-    private val mutableSelectedOrder = MutableLiveData<Order>()
-
-    private val _navigateToOrder = MutableLiveData<Auth?>()
-
-    val navigateToOrder: MutableLiveData<Auth?>
-        get() = _navigateToOrder
-
-    fun doneNavigating() {
-        _navigateToOrder.value = null
-    }
+    private val mutableSelectedOrder = MutableLiveData<Order?>()
+    val selectedOrder: LiveData<Order?> get() = mutableSelectedOrder
 
     fun selectAuth(auth: Auth) {
         mutableSelectedAuth.value = auth
     }
 
+    fun doneSelectAuth() {
+        mutableSelectedAuth.value = null
+    }
+
     fun selectOrder(order: Order) {
         mutableSelectedOrder.value = order
+    }
+
+    fun doneSelectOrder() {
+        mutableSelectedOrder.value = null
     }
 
     fun insertAuth(auth: Auth) = viewModelScope.launch {

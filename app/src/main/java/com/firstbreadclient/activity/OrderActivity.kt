@@ -38,7 +38,6 @@ import java.util.*
 class OrderActivity : AppCompatActivity(), ItemClickListener, InternetConnectionListener {
     private var mDataBundle: Bundle? = null
     private var mOrderList: ArrayList<Order?>? = null
-    //private var mOrderViewModel: RoomModel? = null
 
     private val firstViewModel: FirstViewModel by viewModels {
         FirstViewModelFactory((application as FirstApplication).repository)
@@ -72,29 +71,12 @@ class OrderActivity : AppCompatActivity(), ItemClickListener, InternetConnection
         mOrderDate.text = "$orderDate $cntKod"
 
         val mRecyclerView = findViewById<RecyclerView>(R.id.RecyclerViewOrder)
-        //val orderAdapter = OrderAdapter(this)
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this@OrderActivity)
         mRecyclerView.layoutManager = layoutManager
-        //mRecyclerView.adapter = orderAdapter
-
-        //orderAdapter.setClickListener(this)
 
         mService = RetrofitInstance.retrofitInstance?.create(GetDataService::class.java)
 
         orderData
-
-        // Get a new or existing ViewModel from the ViewModelProvider.
-        //mOrderViewModel = ViewModelProviders.of(this).get(RoomModel::class.java)
-
-        // Add an observer on the LiveData returned by getAlphabetizedWords.
-        // The onChanged() method fires when the observed data changes and the activity is
-        // in the foreground.
-        // Update the cached copy of the words in the adapter.
-        //mOrderViewModel!!.allOrders.observe(this, Observer { orders: List<Order> -> orderAdapter.setOrders(orders) })
-        /*firstViewModel.allOrders.observe(owner = this) { orders ->
-            // Update the cached copy of the words in the adapter.
-            orders.let { orderAdapter.setOrders(it) }
-        }*/
 
         val fabOrder = findViewById<FloatingActionButton>(R.id.fab_order)
         fabOrder.setOnClickListener { orderData }
@@ -113,7 +95,7 @@ class OrderActivity : AppCompatActivity(), ItemClickListener, InternetConnection
                     collapsingToolbarLayout.title = "$orderDate $cntKod"
                     isShow = true
                 } else if (isShow) {
-                    collapsingToolbarLayout.title = " " //careful there should a space between double quote otherwise it wont work
+                    collapsingToolbarLayout.title = " "
                     isShow = false
                 }
             }
