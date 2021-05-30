@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.firstbreadclient.R
@@ -18,24 +19,30 @@ import com.firstbreadclient.room.FirstViewModel
 import com.firstbreadclient.room.FirstViewModelFactory
 
 class OrderFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        val bindingOrderFragment: OrderFragmentBinding = DataBindingUtil.inflate(inflater,
-                R.layout.order_fragment, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        val bindingOrderFragment: OrderFragmentBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.order_fragment, container, false
+        )
 
         val application = requireNotNull(this.activity).application
 
         val viewModelFactory = FirstViewModelFactory((application as FirstApplication).repository)
 
         val firstViewModel = ViewModelProvider(
-                this, viewModelFactory).get(FirstViewModel::class.java)
+            this, viewModelFactory
+        ).get(FirstViewModel::class.java)
 
         bindingOrderFragment.firstViewModel = firstViewModel
 
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this.activity)
         bindingOrderFragment.recyclerViewOrder.layoutManager = layoutManager
 
-        val orderAdapter = OrderAdapter(OrderListener { Order ->  firstViewModel.selectOrder(Order) })
+        val orderAdapter =
+            OrderAdapter(OrderListener { Order -> firstViewModel.selectOrder(Order) })
         bindingOrderFragment.recyclerViewOrder.adapter = orderAdapter
 
         bindingOrderFragment.lifecycleOwner = this
@@ -43,7 +50,16 @@ class OrderFragment : Fragment() {
         firstViewModel.allOrders.observe(viewLifecycleOwner, {
             it.let { orderAdapter.submitList(it) }
         })
+        firstViewModel.selectedOrder.observe(viewLifecycleOwner, { order ->
+            order.let {
+                if (order != null) {
+                    this.findNavController()
+                        .navigate(OrderFragmentDirections.actionOrderFragmentToProdFragment(order.daysordermoveid))
 
+                    firstViewModel.doneSelectOrder()
+                }
+            }
+        })
         return bindingOrderFragment.root
     }
 }

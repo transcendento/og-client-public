@@ -26,8 +26,6 @@ import com.firstbreadclient.room.FirstViewModelFactory
 class ProdFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-
-        try {
             val bindingProdFragment: ProdFragmentBinding = DataBindingUtil.inflate(inflater,
                 R.layout.prod_fragment, container, false)
 
@@ -55,10 +53,5 @@ class ProdFragment : Fragment() {
             bindingProdFragment.recyclerViewProd.layoutManager = layoutManager
 
             return bindingProdFragment.root
-
-        } catch (e: Exception) {
-            Log.e(ContentValues.TAG, "onCreateView", e)
-            throw e
-        }
     }
 }

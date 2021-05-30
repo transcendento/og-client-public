@@ -18,6 +18,9 @@ class  FirstViewModel(private val repository: FirstRepository) : ViewModel() {
     private val mutableSelectedOrder = MutableLiveData<Order?>()
     val selectedOrder: LiveData<Order?> get() = mutableSelectedOrder
 
+    private val mutableSelectedProd = MutableLiveData<Prod?>()
+    val selectedProd: LiveData<Prod?> get() = mutableSelectedProd
+
     fun selectAuth(auth: Auth) {
         mutableSelectedAuth.value = auth
     }
@@ -32,6 +35,14 @@ class  FirstViewModel(private val repository: FirstRepository) : ViewModel() {
 
     fun doneSelectOrder() {
         mutableSelectedOrder.value = null
+    }
+
+    fun selectProd(prod: Prod) {
+        mutableSelectedProd.value = prod
+    }
+
+    fun doneSelectProd() {
+        mutableSelectedProd.value = null
     }
 
     fun insertAuth(auth: Auth) = viewModelScope.launch {
