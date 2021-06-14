@@ -27,7 +27,6 @@ class OrderFragment : Fragment() {
             inflater,
             R.layout.order_fragment, container, false
         )
-
         val application = requireNotNull(this.activity).application
 
         val viewModelFactory = FirstViewModelFactory((application as FirstApplication).repository)

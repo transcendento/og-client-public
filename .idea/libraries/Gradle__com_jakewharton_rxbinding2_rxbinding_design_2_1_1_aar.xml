@@ -1,12 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.jakewharton.rxbinding2:rxbinding-design:2.1.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5b881220682538bd4209079f0ca7206c/jetified-rxbinding-design-2.1.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5b881220682538bd4209079f0ca7206c/jetified-rxbinding-design-2.1.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5b881220682538bd4209079f0ca7206c/jetified-rxbinding-design-2.1.1/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/094602f1281d121bd3e81b17960f55ef/jetified-rxbinding-design-2.1.1/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/094602f1281d121bd3e81b17960f55ef/jetified-rxbinding-design-2.1.1/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/094602f1281d121bd3e81b17960f55ef/jetified-rxbinding-design-2.1.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a67d66c70e48c8c2e1a8ca340f9fcf4e/jetified-rxbinding-design-2.1.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/02146ce03615a7a959b9592d2eb00766/jetified-rxbinding-design-2.1.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2b0cb167af8463ff6bea9ba0c30c6efe/jetified-rxbinding-design-2.1.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2b0cb167af8463ff6bea9ba0c30c6efe/jetified-rxbinding-design-2.1.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2b0cb167af8463ff6bea9ba0c30c6efe/jetified-rxbinding-design-2.1.1/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton.rxbinding2/rxbinding-design/2.1.1/89839fa78c0f7e364239a1707b831b9cf4cb6d6a/rxbinding-design-2.1.1-javadoc.jar!/" />

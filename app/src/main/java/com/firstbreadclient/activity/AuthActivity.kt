@@ -83,10 +83,6 @@ class AuthActivity : AppCompatActivity(), InternetConnectionListener, Authentica
 
         authPresenter.authToken()
 
-        /*firstViewModel.selectedAuth.observe(this, Observer { auth ->
-            onClickAuth(auth)
-        })*/
-
         val fabAuth = findViewById<FloatingActionButton>(R.id.FloatingActionButtonAuth)
         fabAuth.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
@@ -123,20 +119,6 @@ class AuthActivity : AppCompatActivity(), InternetConnectionListener, Authentica
     fun onMessageEvent(event: NetworkEvent) {
         Snackbar.make(mParentLayout!!, event.message, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
-    }
-
-    private fun onClickAuth(auth: Auth) {
-        val intent = Intent(this, OrderActivity::class.java)
-        mDataBundle!!.putString("cntkod", auth.cntkod)
-        mDataBundle!!.putString("orderdate", mDateOrder)
-
-        intent.putExtra("cntid", auth.cntid)
-        intent.putExtra("cntkod", auth.cntkod)
-        intent.putExtra("cntname", auth.cntname)
-        intent.putExtra("cntadres", auth.cntadres)
-        intent.putExtra("orderdate", mDateOrder)
-        auth.cntkod.let { Log.i("cntkod", it) }
-        startActivity(intent, mDataBundle)
     }
 
     override fun onInternetUnavailable() {

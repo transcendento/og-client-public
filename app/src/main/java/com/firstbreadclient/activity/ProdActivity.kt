@@ -68,7 +68,7 @@ class ProdActivity : AppCompatActivity(), InternetConnectionListener {
         mCntNameStrText.text = intent.getStringExtra("cntnamestr")
 
         val mRecyclerView = findViewById<RecyclerView>(R.id.recycler_view_prod_list)
-        prodAdapter = ProdAdapter(this)
+        //prodAdapter = ProdAdapter(this)
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this@ProdActivity)
         mRecyclerView.layoutManager = layoutManager
         mRecyclerView.adapter = prodAdapter
@@ -77,10 +77,12 @@ class ProdActivity : AppCompatActivity(), InternetConnectionListener {
 
         prodData
 
+/*
         firstViewModel.allProds.observe(owner = this) { prods ->
             // Update the cached copy of the words in the adapter.
             prods.let { prodAdapter!!.setProds(it) }
         }
+*/
 
         val fabOrder = findViewById<FloatingActionButton>(R.id.fab_prod)
         fabOrder.setOnClickListener { onClick() }
@@ -121,7 +123,7 @@ class ProdActivity : AppCompatActivity(), InternetConnectionListener {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                prodAdapter!!.filter.filter(newText)
+                //prodAdapter!!.filter.filter(newText)
                 return false
             }
         })

@@ -1,12 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: com.jakewharton.rxbinding2:rxbinding-support-v4:2.1.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/609c3196840455ec9434901fac94ec1a/jetified-rxbinding-support-v4-2.1.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/609c3196840455ec9434901fac94ec1a/jetified-rxbinding-support-v4-2.1.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/609c3196840455ec9434901fac94ec1a/jetified-rxbinding-support-v4-2.1.1/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f06e1b1728750f8103e0b40a53a6c8e9/jetified-rxbinding-support-v4-2.1.1/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f06e1b1728750f8103e0b40a53a6c8e9/jetified-rxbinding-support-v4-2.1.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f06e1b1728750f8103e0b40a53a6c8e9/jetified-rxbinding-support-v4-2.1.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3d7636f0a4b3d32d6b1198aa847f5f24/jetified-rxbinding-support-v4-2.1.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/04718d1a4cecb4608b5730079126b88c/jetified-rxbinding-support-v4-2.1.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ae10bbe60b930e5b12aeba754360fe13/jetified-rxbinding-support-v4-2.1.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ae10bbe60b930e5b12aeba754360fe13/jetified-rxbinding-support-v4-2.1.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ae10bbe60b930e5b12aeba754360fe13/jetified-rxbinding-support-v4-2.1.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton.rxbinding2/rxbinding-support-v4/2.1.1/e28dedd455025c97cdfcbd6f51ba8a6fa6e14277/rxbinding-support-v4-2.1.1-javadoc.jar!/" />

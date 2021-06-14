@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
@@ -27,69 +28,75 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/text_prodlongname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="sans-serif-light"
-            android:gravity="center_horizontal"
-            android:textColor="@color/font_name"
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/textViewProdLongName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/font_name"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:prodLongNameText="@{prod}" />
 
-        <Button
-            android:id="@+id/button_sub"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/text_prodlongname"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/buttonselector"
-            android:drawableLeft="@drawable/ic_action_previous_item"
-            android:textAllCaps="false"
-            android:textColor="@color/edit_normal" />
+            <Button
+                android:id="@+id/buttonSub"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/buttonselector"
+                android:drawableStart="@drawable/ic_action_previous_item"
+                android:textAllCaps="false"
+                android:textColor="@color/edit_normal"
+                app:layout_constraintStart_toStartOf="@+id/textViewProdLongName"
+                app:layout_constraintTop_toBottomOf="@+id/textViewProdLongName" />
 
-        <TextView
-            android:id="@+id/text_amountstr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/button_sub"
-            android:layout_centerInParent="true"
-            android:fontFamily="sans-serif-light"
-            android:textColor="@color/button_normal"
-            android:text="-12"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/textViewAmountStr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/buttonSub"
+                android:layout_centerInParent="true"
+                android:fontFamily="sans-serif-light"
+                android:text="12"
+                android:textColor="@color/button_normal"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/buttonSub"
+                app:layout_constraintTop_toBottomOf="@+id/buttonSub"
+                tools:ignore="HardcodedText" />
 
-        <Button
-            android:id="@+id/button_add"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/text_prodlongname"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/buttonselector"
-            android:text="+12"
-            android:textSize="18sp"
-            android:textAllCaps="false"
-            android:textColor="@color/edit_normal" />
+            <Button
+                android:id="@+id/buttonAdd"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/buttonselector"
+                android:text="+12"
+                android:textAllCaps="false"
+                android:textColor="@color/edit_normal"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/textViewAmountStr"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAmountStr"
+                tools:ignore="HardcodedText" />
 
-        <TextView
-            android:id="@+id/text_packingname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/button_sub"
-            android:layout_centerInParent="true"
-            android:fontFamily="sans-serif-light"
-            android:textColor="@color/font_name"
-            android:text="полимер малый"
-            android:textSize="10sp"
-            android:layout_marginBottom="4dp"/>
+            <TextView
+                android:id="@+id/textViewPackingName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/buttonSub"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="sans-serif-light"
+                android:text="полимер малый"
+                android:textColor="@color/font_name"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/buttonAdd"
+                app:layout_constraintTop_toBottomOf="@+id/buttonAdd"
+                tools:ignore="HardcodedText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

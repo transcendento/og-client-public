@@ -4,6 +4,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.firstbreadclient.model.data.Auth
 import com.firstbreadclient.model.data.Order
+import com.firstbreadclient.model.data.Prod
 
 @BindingAdapter("authKodText")
 fun TextView.setAuthKodText(item: Auth?) {
@@ -39,4 +40,12 @@ fun TextView.setOrderFlagNameText(item: Order?) {
         text = convertMoveFlagToString(1, context.resources)
     }
 }
+
+@BindingAdapter("prodLongNameText")
+fun TextView.serProdLongNameText(item: Prod?) {
+    item?.let {
+        text = item.prodlongname
+    }
+}
+
 

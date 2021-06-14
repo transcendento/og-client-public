@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.firstbreadclient.databinding.ProdRowBinding
 import com.firstbreadclient.model.data.Prod
 
 class ProdAdapter(private val clickListener: ProdListener) : ListAdapter<Prod, ProdAdapter.ProdViewHolder>(ProdDiffCallback()) {
