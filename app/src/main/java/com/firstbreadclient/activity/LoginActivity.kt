@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
     private var mCntkodEdit: TextInputEditText? = null
     private var mPasswordEdit: TextInputEditText? = null
     private var mLoginButton: FloatingActionButton? = null
-    private var mService: LoginService? = null
+    private var mLoginService: LoginService? = null
     private var mParentLayout: View? = null
     private var mAuthToolBar: Toolbar? = null
 
@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
 
         Objects.requireNonNull(supportActionBar)!!.setDisplayHomeAsUpEnabled(true)
 
-        mService = LoginRetrofitInstance.retrofitInstance?.create(LoginService::class.java)
+        mLoginService = LoginRetrofitInstance.retrofitInstance?.create(LoginService::class.java)
 
         val userNameObservable = RxTextView.textChanges(mCntkodEdit!!)
                 .map { obj: CharSequence -> obj.toString() }
@@ -85,9 +85,10 @@ class LoginActivity : AppCompatActivity() {
                     mLoginButton!!.isEnabled = ui.cntkod?.length!! >= 4 && ui.password?.length!! >= 4
                 }
         )
+
         val loginObservable = RxView.clicks(mLoginButton!!)
                 .flatMap {
-                    mService!!.signin(Registration(mCntkodEdit!!.text.toString(), mPasswordEdit!!.text.toString()))!!
+                    mLoginService!!.signin(Registration(mCntkodEdit!!.text.toString(), mPasswordEdit!!.text.toString()))!!
                             .subscribeOn(Schedulers.io())
                             .map { n: Authorization ->
                                 if (n.tokenType == "Bearer")

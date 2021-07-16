@@ -59,8 +59,10 @@ class AuthActivity : AppCompatActivity(), InternetConnectionListener, Authentica
         val toolbar = findViewById<Toolbar>(R.id.authToolbar)
         mParentLayout = findViewById(android.R.id.content)
 
-        toolbar.title = "Первый хлеб"
-        toolbar.subtitle = "Клиенты"
+        with(toolbar) {
+            title = resources.getString(R.string.app_name)
+            subtitle = resources.getString(R.string.clients)
+        }
 
         setSupportActionBar(toolbar)
 
@@ -78,8 +80,10 @@ class AuthActivity : AppCompatActivity(), InternetConnectionListener, Authentica
             }
         })
 
-        OkHttpClientInstance.getSession()?.saveCntkod("1234")
-        OkHttpClientInstance.getSession()?.savePassword("1111")
+        with(OkHttpClientInstance.getSession()) {
+            this?.saveCntkod("1158")
+            this?.savePassword("11111")
+        }
 
         authPresenter.authToken()
 

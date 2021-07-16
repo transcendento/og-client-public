@@ -36,23 +36,22 @@ class AuthPresenter @Inject constructor(private var authInteractor: AuthInteract
         val passwordObservable = Observable.just(OkHttpClientInstance.getSession()?.getPassword())
 
         val uiResultObservable = Observable.combineLatest(
-                userNameObservable,
-                passwordObservable, { cntkod: String?, password: String? -> UIEvent(cntkod, password) })
+            userNameObservable,
+            passwordObservable, { cntkod: String?, password: String? -> UIEvent(cntkod, password) })
 
         val loginObservable = uiResultObservable
-                .flatMap { log: UIEvent ->
-                    authInteractor.signin(Registration(log.cntkod, log.password))!!
-                            .subscribeOn(Schedulers.io())
-                            .map { author: Authorization ->
-
-                                when (author.tokenType) {
-                                    "Bearer" -> LoginResult(false, author.accessToken)
-                                    else -> LoginResult(true, "Ошибка авторизации")
-                                }
-                            }
-                            .onErrorReturnItem(LoginResult(true, "Сетевая ошибка"))
-                }
-                .observeOn(AndroidSchedulers.mainThread())
+            .flatMap { log: UIEvent ->
+                authInteractor.signin(Registration(log.cntkod, log.password))!!
+                    .subscribeOn(Schedulers.io())
+                    .map { author: Authorization ->
+                        when (author.tokenType) {
+                            "Bearer" -> LoginResult(false, author.accessToken)
+                            else -> LoginResult(true, "Ошибка авторизации")
+                        }
+                    }
+                    .onErrorReturnItem(LoginResult(true, "Сетевая ошибка"))
+            }
+            .observeOn(AndroidSchedulers.mainThread())
 
         loginCompositeDisposable.add(loginObservable.subscribe { be: LoginResult ->
             if (be.hasError) {
@@ -67,18 +66,23 @@ class AuthPresenter @Inject constructor(private var authInteractor: AuthInteract
     }
 
     fun authData() {
-        val tokenAll = "25d55ad283aa400af464c76d713c07ad"
+        val tokenAll = "82fcf9f268616f634c45ce9e71b4bafa"
 
         val jwt = OkHttpClientInstance.getSession()?.getToken()
+        jwt ?: return
 
         val call = authInteractor.getAuthData(jwt, tokenAll)
 
         Log.i("URL Called", call?.request()?.url.toString() + "")
 
         call?.enqueue(object : Callback<ArrayList<Auth?>?> {
-            override fun onResponse(call: Call<ArrayList<Auth?>?>, response: Response<ArrayList<Auth?>?>) {
+            override fun onResponse(
+                call: Call<ArrayList<Auth?>?>,
+                response: Response<ArrayList<Auth?>?>
+            ) {
                 if (!response.isSuccessful) {
-                    mAuthView?.showToast("Ошибка соединения")
+                    if (response.code() != 401)
+                        mAuthView?.showToast("Ошибка соединения")
                     return
                 }
                 mAuthView?.updateAuthUi(response.body())

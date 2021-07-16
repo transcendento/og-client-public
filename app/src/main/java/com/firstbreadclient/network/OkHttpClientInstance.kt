@@ -25,40 +25,40 @@ object OkHttpClientInstance {
     private var mAuthenticationListener: AuthenticationListener? = null
     private var mService: LoginService? = null
 
-    @JvmStatic
-    fun getOkHttpClientInstance(sslSocketFactory: SSLSocketFactory?, trustManager: X509TrustManager?): OkHttpClient? {
-        if (sOkHttpClient == null) {
-            sOkHttpClient = OkHttpClient.Builder()
-                    .sslSocketFactory(sslSocketFactory!!, trustManager!!)
-                    .addInterceptor(object : NetworkConnectionInterceptor() {
-                        override val isInternetAvailable: Boolean
-                            get() = false
+    fun getOkHttpClientInstance(
+        sslSocketFactory: SSLSocketFactory?,
+        trustManager: X509TrustManager?
+    ): OkHttpClient? {
+        when (sOkHttpClient) {
+            null -> sOkHttpClient = OkHttpClient.Builder()
+                .sslSocketFactory(sslSocketFactory!!, trustManager!!)
+                .addInterceptor(object : NetworkConnectionInterceptor() {
+                    override val isInternetAvailable: Boolean
+                        get() = false
 
-                        override fun onInternetUnavailable() {
-                            EventBus.getDefault().post(NetworkEvent("onInternetUnavailable"))
-                        }
-                    })
-                    .build()
+                    override fun onInternetUnavailable() {
+                        EventBus.getDefault().post(NetworkEvent("onInternetUnavailable"))
+                    }
+                })
+                .build()
         }
         return sOkHttpClient
     }
 
-    @JvmStatic
     fun getOkHttpClientInstance(): OkHttpClient? {
-        if (sOkHttpClient == null) {
-            sOkHttpClient = OkHttpClient.Builder()
-                    .addInterceptor(object : NetworkConnectionInterceptor() {
-                        override val isInternetAvailable: Boolean
-                            get() = isInternetAvailable()
+        sOkHttpClient ?: return OkHttpClient.Builder()
+            .addInterceptor(object : NetworkConnectionInterceptor() {
+                override val isInternetAvailable: Boolean
+                    get() = isInternetAvailable()
 
-                        override fun onInternetUnavailable() {
-                            mInternetConnectionListener?.onInternetUnavailable()
-                        }
-                    })
-                    .addInterceptor(TokenRenewInterceptor(getSession()!!))
-                    .addInterceptor(AuthorizationInterceptor(getSession()!!))
-                    .build()
-        }
+                override fun onInternetUnavailable() {
+                    mInternetConnectionListener?.onInternetUnavailable()
+                }
+            })
+            .addInterceptor(TokenRenewInterceptor(getSession()!!))
+            .addInterceptor(AuthorizationInterceptor(getSession()!!))
+            .build()
+
         return sOkHttpClient
     }
 
@@ -72,7 +72,7 @@ object OkHttpClientInstance {
 
     private fun isInternetAvailable(): Boolean {
         val connectivityManager = (mInternetConnectionListener as AppCompatActivity?)!!
-                .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = Objects.requireNonNull(connectivityManager).activeNetworkInfo
         return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
@@ -90,12 +90,14 @@ object OkHttpClientInstance {
                 }
 
                 override fun isLoggedIn(): Boolean {
-                    val isLogged = SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)?.token == ""
+                    val isLogged =
+                        SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)?.token == ""
                     return !isLogged
                 }
 
                 override fun saveToken(token: String?) {
-                    SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)?.saveToken(token)
+                    SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)
+                        ?.saveToken(token)
                 }
 
                 override fun getToken(): String? {
@@ -103,7 +105,8 @@ object OkHttpClientInstance {
                 }
 
                 override fun saveCntkod(cntkod: String?) {
-                    SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)?.saveCntkod(cntkod)
+                    SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)
+                        ?.saveCntkod(cntkod)
                 }
 
                 override fun getCntkod(): String? {
@@ -111,7 +114,8 @@ object OkHttpClientInstance {
                 }
 
                 override fun savePassword(password: String?) {
-                    SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)?.savePassword(password)
+                    SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)
+                        ?.savePassword(password)
                 }
 
                 override fun getPassword(): String? {
@@ -119,6 +123,7 @@ object OkHttpClientInstance {
                 }
 
                 override fun invalidate() {
+                    SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)?.clear()
                     if (mAuthenticationListener != null) {
                         mAuthenticationListener!!.onUserLoggedOut()
                     }
