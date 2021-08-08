@@ -10,22 +10,22 @@ OrderGoodsClient
 Используемые библиотеки
 -----------------------
 
-* [Foundation]
-  * [Android KTX]
-  * [Test]
-* [Architecture]
-  * [Data Binding]
-  * [LiveData]
-  * [Navigation]
-  * [Room]
-  * [ViewModel]
-* [UI]
-  * [Fragment]
-  * [Layout]
+* Foundation
+  * Android KTX
+  * Test
+* Architecture
+  * Data Binding
+  * LiveData
+  * Navigation
+  * Room
+  * ViewModel
+* UI
+  * Fragment
+  * Layout
 * Third party and miscellaneous libraries
-  * [JavaRX]
-  * [Dagger]
-  * [Kotlin Coroutines]
+  * JavaRX
+  * Dagger
+  * Kotlin Coroutines
 
 ```
 Cntkod: "1234"
