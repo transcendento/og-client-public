@@ -26,6 +26,8 @@ OrderGoodsClient
   * Retrofit2
     * OkHttp3
     * Network Interceptors
+* Pattern
+  * MVP
 * Third party and miscellaneous libraries
   * JavaRX
   * Dagger
