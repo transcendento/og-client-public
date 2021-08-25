@@ -25,7 +25,7 @@ OrderGoodsClient
 * HTTP client
   * Retrofit2
     * OkHttp3
-    * Network interceptors
+    * Network Interceptors
 * Third party and miscellaneous libraries
   * JavaRX
   * Dagger
