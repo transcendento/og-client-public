@@ -22,6 +22,10 @@ OrderGoodsClient
 * UI
   * Fragment
   * Layout
+* HTTP client
+  * Retrofit2
+  * OkHttp3
+  * Network interceptors
 * Third party and miscellaneous libraries
   * JavaRX
   * Dagger
