@@ -8,8 +8,9 @@ object RetrofitInstance {
     private var sRetrofit: Retrofit? = null
 
     // FIXME Retrofit BASE_URL
-    private const val BASE_URL = "http://192.168.57.60:9090/"
+    //private const val BASE_URL = "http://192.168.57.60:9090/"
     //private const val BASE_URL = "http://10.0.2.2:9090/"
+    private const val BASE_URL = "http://192.168.1.6:9090/"
 
     val retrofitInstance: Retrofit?
         get() {

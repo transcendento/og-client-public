@@ -81,8 +81,8 @@ class AuthActivity : AppCompatActivity(), InternetConnectionListener, Authentica
         })
 
         with(OkHttpClientInstance.getSession()) {
-            this?.saveCntkod("1158")
-            this?.savePassword("11111")
+            this?.saveCntkod("1234")
+            this?.savePassword("1111")
         }
 
         authPresenter.authToken()
