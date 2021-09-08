@@ -29,8 +29,8 @@ OrderGoodsClient
 * Pattern
   * MVP
 * Third party and miscellaneous libraries
-  * JavaRX
-  * Dagger
+  * JavaRX2
+  * Dagger2 + MVP
   * Kotlin Coroutines
 
 ```

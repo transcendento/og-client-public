@@ -80,11 +80,6 @@ class AuthActivity : AppCompatActivity(), InternetConnectionListener, Authentica
             }
         })
 
-        with(OkHttpClientInstance.getSession()) {
-            this?.saveCntkod("1234")
-            this?.savePassword("1111")
-        }
-
         authPresenter.authToken()
 
         val fabAuth = findViewById<FloatingActionButton>(R.id.FloatingActionButtonAuth)

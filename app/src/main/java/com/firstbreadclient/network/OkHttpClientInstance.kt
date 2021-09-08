@@ -11,7 +11,7 @@ import com.firstbreadclient.network.listener.AuthenticationListener
 import com.firstbreadclient.network.listener.InternetConnectionListener
 import com.firstbreadclient.network.security.Session
 import com.firstbreadclient.service.LoginService
-import com.firstbreadclient.storage.SharedPrefManager
+import com.firstbreadclient.storage.SharedPreferencesManager
 import okhttp3.OkHttpClient
 import org.greenrobot.eventbus.EventBus
 import java.util.*
@@ -80,6 +80,7 @@ object OkHttpClientInstance {
     fun setAuthenticationListener(service: LoginService?, listener: AuthenticationListener?) {
         mAuthenticationListener = listener
         mService = service
+        SharedPreferencesManager.init(mAuthenticationListener as AppCompatActivity)
     }
 
     fun getSession(): Session? {
@@ -91,39 +92,36 @@ object OkHttpClientInstance {
 
                 override fun isLoggedIn(): Boolean {
                     val isLogged =
-                        SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)?.token == ""
+                        SharedPreferencesManager.token == ""
                     return !isLogged
                 }
 
                 override fun saveToken(token: String?) {
-                    SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)
-                        ?.saveToken(token)
+                    SharedPreferencesManager.token = token
                 }
 
                 override fun getToken(): String? {
-                    return SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)?.token
+                    return SharedPreferencesManager.token
                 }
 
                 override fun saveCntkod(cntkod: String?) {
-                    SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)
-                        ?.saveCntkod(cntkod)
+                    SharedPreferencesManager.cntkod = cntkod
                 }
 
                 override fun getCntkod(): String? {
-                    return SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)?.cntkod
+                    return SharedPreferencesManager.cntkod
                 }
 
                 override fun savePassword(password: String?) {
-                    SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)
-                        ?.savePassword(password)
+                    SharedPreferencesManager.password = password
                 }
 
                 override fun getPassword(): String? {
-                    return SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)?.password
+                    return SharedPreferencesManager.password
                 }
 
                 override fun invalidate() {
-                    SharedPrefManager.getInstance(mAuthenticationListener as AppCompatActivity)?.clear()
+                    SharedPreferencesManager.clear()
                     if (mAuthenticationListener != null) {
                         mAuthenticationListener!!.onUserLoggedOut()
                     }

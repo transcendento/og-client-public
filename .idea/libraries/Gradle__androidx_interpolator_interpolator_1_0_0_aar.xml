@@ -5,12 +5,15 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5480ac5754587702ecd15ef9fe76aa4e/interpolator-1.0.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/03970c63f3b58b0ceb17446a4601b6c2/interpolator-1.0.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6faa4b67718470f1de6c4f77a7a39e42/interpolator-1.0.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/cd873e163f85b01e61e0e29a7ca12529/interpolator-1.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/cd873e163f85b01e61e0e29a7ca12529/interpolator-1.0.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/cd873e163f85b01e61e0e29a7ca12529/interpolator-1.0.0/AndroidManifest.xml" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/678434a6b2ec8dc9c56522d6de1ddfc4/transformed/interpolator-1.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/678434a6b2ec8dc9c56522d6de1ddfc4/transformed/interpolator-1.0.0/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/678434a6b2ec8dc9c56522d6de1ddfc4/transformed/interpolator-1.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e074f04828043cccca3151a97c2efecb/interpolator-1.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/46ef61fd7c0c810ab9ac162deded55df/transformed/interpolator-1.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0cde99b22d6237edd6cd5ad235773dae/transformed/interpolator-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0cde99b22d6237edd6cd5ad235773dae/transformed/interpolator-1.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0cde99b22d6237edd6cd5ad235773dae/transformed/interpolator-1.0.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
