@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity(), InternetConnectionListener, Authentic
 
         setSupportActionBar(mAuthToolBar)
 
-        Objects.requireNonNull(supportActionBar)!!.setDisplayHomeAsUpEnabled(true)
+        Objects.requireNonNull(supportActionBar)?.setDisplayHomeAsUpEnabled(true)
 
         mLoginService = LoginRetrofitInstance.retrofitInstance?.create(LoginService::class.java)
 
@@ -99,8 +99,7 @@ class LoginActivity : AppCompatActivity(), InternetConnectionListener, Authentic
             .flatMap {
                 mLoginService!!.signin(
                     Registration(
-                        mCntkodEdit!!.text.toString(),
-                        mPasswordEdit!!.text.toString()
+                        mCntkodEdit!!.text.toString(), mPasswordEdit!!.text.toString()
                     )
                 )!!
                     .subscribeOn(Schedulers.io())
@@ -155,12 +154,20 @@ class LoginActivity : AppCompatActivity(), InternetConnectionListener, Authentic
     }
 
     override fun onInternetUnavailable() {
-        Snackbar.make(mParentLayout!!, resources.getString(R.string.conn_fail), Snackbar.LENGTH_LONG)
+        Snackbar.make(
+            mParentLayout!!,
+            resources.getString(R.string.conn_fail),
+            Snackbar.LENGTH_LONG
+        )
             .setAction("Action", null).show()
     }
 
     override fun onUserLoggedOut() {
-        Snackbar.make(mParentLayout!!, resources.getString(R.string.auth_fail), Snackbar.LENGTH_LONG)
+        Snackbar.make(
+            mParentLayout!!,
+            resources.getString(R.string.auth_fail),
+            Snackbar.LENGTH_LONG
+        )
             .setAction("Action", null).show()
     }
 

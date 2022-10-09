@@ -36,8 +36,8 @@ class AuthorizationInterceptor(private val mSession: Session) : Interceptor {
 
                 val uiResultObservable = Observable.combineLatest(
                     userNameObservable,
-                    passwordObservable,
-                    { cntkod: String?, password: String? -> UIEvent(cntkod, password) })
+                    passwordObservable
+                ) { cntkod: String?, password: String? -> UIEvent(cntkod, password) }
 
                 val loginObservable = uiResultObservable
                     .flatMap { log: UIEvent ->

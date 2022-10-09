@@ -41,7 +41,7 @@ class OrderFragment : Fragment() {
         bindingOrderFragment.recyclerViewOrder.layoutManager = layoutManager
 
         val orderAdapter =
-            OrderAdapter(OrderListener { Order -> firstViewModel.selectOrder(Order) })
+            OrderAdapter(OrderListener { order -> firstViewModel.selectOrder(order) })
         bindingOrderFragment.recyclerViewOrder.adapter = orderAdapter
 
         bindingOrderFragment.lifecycleOwner = this
