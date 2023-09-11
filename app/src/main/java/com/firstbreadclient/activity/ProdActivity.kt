@@ -2,7 +2,6 @@ package com.firstbreadclient.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -12,42 +11,44 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.observe
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.firstbreadclient.R
-import com.firstbreadclient.adapter.ProdAdapter
 import com.firstbreadclient.model.data.Prod
+import com.firstbreadclient.mvp.AppModuleProd
+import com.firstbreadclient.mvp.DaggerAppComponentProd
+import com.firstbreadclient.mvp.presenter.ProdPresenter
+import com.firstbreadclient.mvp.view.ProdView
 import com.firstbreadclient.network.OkHttpClientInstance
-import com.firstbreadclient.network.RetrofitInstance
 import com.firstbreadclient.network.listener.InternetConnectionListener
 import com.firstbreadclient.room.FirstApplication
 import com.firstbreadclient.room.FirstViewModel
 import com.firstbreadclient.room.FirstViewModelFactory
-import com.firstbreadclient.service.GetDataService
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.*
+import com.google.android.material.snackbar.Snackbar
+import java.util.Objects
+import javax.inject.Inject
 
-class ProdActivity : AppCompatActivity(), InternetConnectionListener {
+class ProdActivity : AppCompatActivity(), InternetConnectionListener, ProdView {
     private var mDataBundle: Bundle? = null
     private var mProdList: ArrayList<Prod?>? = null
-    private var mService: GetDataService? = null
+    //private var mService: GetDataService? = null
 
     private val firstViewModel: FirstViewModel by viewModels {
         FirstViewModelFactory((application as FirstApplication).repository)
     }
 
-    private var prodAdapter: ProdAdapter? = null
+    //private var prodAdapter: ProdAdapter? = null
     private var mAppBarProd: AppBarLayout? = null
     private var parentLayout: View? = null
 
+    @Inject
+    lateinit var prodPresenter: ProdPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        DaggerAppComponentProd.builder().appModuleProd(AppModuleProd(this)).build().inject(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.prod_main)
         val toolbar = findViewById<Toolbar>(R.id.authToolbar)
@@ -61,21 +62,26 @@ class ProdActivity : AppCompatActivity(), InternetConnectionListener {
 
         mAppBarProd = findViewById(R.id.orderAppBarLayout)
 
+        prodPresenter.bind(this)
+
         Objects.requireNonNull(supportActionBar)?.setDisplayHomeAsUpEnabled(true)
 
         val mCntNameStrText = findViewById<TextView>(R.id.text_cntnamestr_prod)
 
         mCntNameStrText.text = intent.getStringExtra("cntnamestr")
 
+/*
         val mRecyclerView = findViewById<RecyclerView>(R.id.recycler_view_prod_list)
         //prodAdapter = ProdAdapter(this)
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this@ProdActivity)
         mRecyclerView.layoutManager = layoutManager
         mRecyclerView.adapter = prodAdapter
+*/
 
-        mService = RetrofitInstance.retrofitInstance?.create(GetDataService::class.java)
+        //mService = RetrofitInstance.retrofitInstance?.create(GetDataService::class.java)
 
-        prodData
+        prodPresenter.prodData()
+        //prodData
 
 /*
         firstViewModel.allProds.observe(owner = this) { prods ->
@@ -113,6 +119,11 @@ class ProdActivity : AppCompatActivity(), InternetConnectionListener {
         OkHttpClientInstance.removeInternetConnectionListener()
     }
 
+    override fun onDestroy() {
+        prodPresenter.unbind()
+        super.onDestroy()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.order_list_actions, menu)
         val mSearchItem = menu.findItem(R.id.search)
@@ -142,6 +153,7 @@ class ProdActivity : AppCompatActivity(), InternetConnectionListener {
         }
     }
 
+/*
     private val prodData: Unit
         get() {
             val daysId = intent.getStringExtra("daysordermoveid")
@@ -169,9 +181,57 @@ class ProdActivity : AppCompatActivity(), InternetConnectionListener {
             })
         }
 
+    private val prodPost: Unit
+        get(){
+            val allProd = firstViewModel.allProds.value
+            val call = allProd?.let { mService!!.postProd(it) }
+            call?.enqueue(object: Callback<ResponseBody> {
+                override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+                ) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+        }
+*/
+
+    override fun putIntent(): Intent? {
+        return intent
+    }
+
+    override fun putViewModel(): FirstViewModel {
+        return firstViewModel
+    }
+
     private fun onClick() {
+        prodPresenter.prodPost()
         mAppBarProd!!.setExpanded(false)
     }
 
     override fun onInternetUnavailable() {}
+    override fun updateProdUi(prodList: ArrayList<Prod?>?) {
+        this.mProdList = prodList
+        for (prod in this.mProdList!!) {
+            if (prod != null) {
+                firstViewModel.insertProd(prod)
+            }
+        }
+    }
+
+    override fun showToast(message: String) {
+        Toast.makeText(this@ProdActivity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showSnackbar(message: String) {
+        Snackbar.make(parentLayout!!, message, Snackbar.LENGTH_LONG)
+            .setAction("Action", null).show()
+
+    }
+
 }

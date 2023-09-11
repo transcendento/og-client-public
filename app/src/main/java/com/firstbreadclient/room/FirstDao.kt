@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.firstbreadclient.model.data.Auth
 import com.firstbreadclient.model.data.Order
 import com.firstbreadclient.model.data.Prod
@@ -37,4 +38,7 @@ interface FirstDao {
 
     @Query("DELETE FROM prod_table")
     suspend fun deleteAllProds()
+
+    @Update
+    suspend fun updateProd(prod: Prod)
 }

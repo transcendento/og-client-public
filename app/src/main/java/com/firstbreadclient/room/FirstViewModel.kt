@@ -2,11 +2,10 @@ package com.firstbreadclient.room
 
 import android.util.Log
 import androidx.lifecycle.*
+import com.firstbreadclient.model.FirstRepository
 import com.firstbreadclient.model.data.Auth
 import com.firstbreadclient.model.data.Order
 import com.firstbreadclient.model.data.Prod
-import com.firstbreadclient.model.FirstRepository
-import com.firstbreadclient.mvp.view.AuthView
 import com.firstbreadclient.network.OkHttpClientInstance
 import com.firstbreadclient.network.RetrofitInstance
 import com.firstbreadclient.service.GetDataService
@@ -14,10 +13,9 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.ArrayList
 
 class FirstViewModel(private val repository: FirstRepository) : ViewModel() {
-    var mService: GetDataService? = null
+    private var mService: GetDataService? = null
 
     init {
         mService = RetrofitInstance.retrofitInstance?.create(GetDataService::class.java)
@@ -75,6 +73,10 @@ class FirstViewModel(private val repository: FirstRepository) : ViewModel() {
 
     fun insertProd(prod: Prod) = viewModelScope.launch {
         repository.insertProd(prod)
+    }
+
+    fun updateProd(prod: Prod) = viewModelScope.launch {
+        repository.updateProd(prod)
     }
 
     private fun orderData(auth: Auth) {

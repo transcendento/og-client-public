@@ -16,7 +16,6 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 import javax.inject.Inject
 
 class AuthPresenter @Inject constructor(private var authInteractor: AuthInteractor) {
@@ -37,7 +36,8 @@ class AuthPresenter @Inject constructor(private var authInteractor: AuthInteract
 
         val uiResultObservable = Observable.combineLatest(
             userNameObservable,
-            passwordObservable, { cntkod: String?, password: String? -> UIEvent(cntkod, password) })
+            passwordObservable
+        ) { cntkod: String?, password: String? -> UIEvent(cntkod, password) }
 
         val loginObservable = uiResultObservable
             .flatMap { log: UIEvent ->

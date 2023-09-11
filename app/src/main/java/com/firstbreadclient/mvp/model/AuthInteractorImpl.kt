@@ -12,11 +12,10 @@ import com.firstbreadclient.service.GetDataService
 import com.firstbreadclient.service.LoginService
 import io.reactivex.Observable
 import retrofit2.Call
-import java.util.ArrayList
 
 class AuthInteractorImpl (internetConnectionListener: InternetConnectionListener?,
                                               authenticationListener: AuthenticationListener?) : AuthInteractor {
-    var mService: GetDataService? = null
+    private var mService: GetDataService? = null
     private var mLoginService: LoginService? = null
 
     init {

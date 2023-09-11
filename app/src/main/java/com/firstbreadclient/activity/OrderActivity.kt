@@ -11,12 +11,8 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.observe
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.firstbreadclient.R
 import com.firstbreadclient.adapter.ItemClickListener
-import com.firstbreadclient.adapter.OrderAdapter
 import com.firstbreadclient.model.data.Order
 import com.firstbreadclient.network.OkHttpClientInstance
 import com.firstbreadclient.network.RetrofitInstance
@@ -33,7 +29,7 @@ import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
+import java.util.Objects
 
 class OrderActivity : AppCompatActivity(), ItemClickListener, InternetConnectionListener {
     private var mDataBundle: Bundle? = null
@@ -70,9 +66,11 @@ class OrderActivity : AppCompatActivity(), ItemClickListener, InternetConnection
         val mOrderDate = findViewById<TextView>(R.id.TextViewDateOrder)
         mOrderDate.text = "$orderDate $cntKod"
 
+/*
         val mRecyclerView = findViewById<RecyclerView>(R.id.RecyclerViewOrder)
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this@OrderActivity)
         mRecyclerView.layoutManager = layoutManager
+*/
 
         mService = RetrofitInstance.retrofitInstance?.create(GetDataService::class.java)
 

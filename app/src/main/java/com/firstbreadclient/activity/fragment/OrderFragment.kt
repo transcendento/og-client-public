@@ -33,7 +33,7 @@ class OrderFragment : Fragment() {
 
         val firstViewModel = ViewModelProvider(
             this, viewModelFactory
-        ).get(FirstViewModel::class.java)
+        )[FirstViewModel::class.java]
 
         bindingOrderFragment.firstViewModel = firstViewModel
 
@@ -46,10 +46,10 @@ class OrderFragment : Fragment() {
 
         bindingOrderFragment.lifecycleOwner = this
 
-        firstViewModel.allOrders.observe(viewLifecycleOwner, {
+        firstViewModel.allOrders.observe(viewLifecycleOwner) {
             it.let { orderAdapter.submitList(it) }
-        })
-        firstViewModel.selectedOrder.observe(viewLifecycleOwner, { order ->
+        }
+        firstViewModel.selectedOrder.observe(viewLifecycleOwner) { order ->
             order.let {
                 if (order != null) {
                     this.findNavController()
@@ -58,7 +58,7 @@ class OrderFragment : Fragment() {
                     firstViewModel.doneSelectOrder()
                 }
             }
-        })
+        }
         return bindingOrderFragment.root
     }
 }

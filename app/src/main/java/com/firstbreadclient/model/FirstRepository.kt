@@ -29,4 +29,10 @@ class FirstRepository(private val firstDao: FirstDao) {
     suspend fun insertProd(prod: Prod) {
         firstDao.insertProd(prod)
     }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun updateProd(prod: Prod) {
+        firstDao.updateProd(prod)
+    }
 }

@@ -6,6 +6,7 @@ import com.firstbreadclient.model.data.Prod
 import com.firstbreadclient.network.security.Authorization
 import com.firstbreadclient.network.security.Registration
 import io.reactivex.Observable
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
@@ -25,4 +26,7 @@ interface GetDataService {
 
     @POST("api/auth/signin")
     fun loginAccount(@Body registration: Registration?): Call<Authorization?>?
+
+    @POST("api/ogs/prod")
+    fun postProd(@Body prod: List<Prod>): Call<ResponseBody>
 }

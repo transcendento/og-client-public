@@ -2,7 +2,6 @@ package com.firstbreadclient.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -28,9 +27,7 @@ import com.google.android.material.snackbar.Snackbar
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.util.*
 import javax.inject.Inject
-import androidx.lifecycle.Observer
 
 class AuthActivity : AppCompatActivity(), InternetConnectionListener, AuthenticationListener, AuthView {
     private var mDataBundle: Bundle? = null

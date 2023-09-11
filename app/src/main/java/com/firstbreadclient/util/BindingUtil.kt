@@ -42,9 +42,16 @@ fun TextView.setOrderFlagNameText(item: Order?) {
 }
 
 @BindingAdapter("prodLongNameText")
-fun TextView.serProdLongNameText(item: Prod?) {
+fun TextView.setProdLongNameText(item: Prod?) {
     item?.let {
         text = item.prodlongname
+    }
+}
+
+@BindingAdapter("amountStr")
+fun TextView.setAmountStrText(item: Prod?) {
+    item?.let {
+        text = item.amountstr
     }
 }
 
