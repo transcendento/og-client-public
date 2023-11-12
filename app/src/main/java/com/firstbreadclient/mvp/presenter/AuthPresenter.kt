@@ -13,6 +13,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -89,6 +90,51 @@ class AuthPresenter @Inject constructor(private var authInteractor: AuthInteract
             }
 
             override fun onFailure(call: Call<ArrayList<Auth?>?>, t: Throwable) {
+                t.message?.let { Log.e("Error message", it) }
+                mAuthView?.showToast("Something went wrong...Error message: " + t.message)
+            }
+        })
+    }
+
+    fun prodPut() {
+        val allProd = mAuthView?.getListProds()
+        val jwt = OkHttpClientInstance.getSession()?.getToken()
+        val call = allProd?.let { authInteractor.putProd(jwt, it) }
+        call?.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(
+                call: Call<ResponseBody>,
+                response: Response<ResponseBody>
+            ) {
+                if (response.code() != 401) {
+                    mAuthView?.showToast("Ошибка вставки")
+                } else {
+                    mAuthView?.showSnackbar("Заявка сохранена")
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                t.message?.let { Log.e("Error message", it) }
+                mAuthView?.showToast("Something went wrong...Error message: " + t.message)
+            }
+        })
+    }
+
+    fun prodDel() {
+        val jwt = OkHttpClientInstance.getSession()?.getToken()
+        val call = authInteractor.delProd(jwt)
+        call?.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(
+                call: Call<ResponseBody>,
+                response: Response<ResponseBody>
+            ) {
+                if (response.code() != 401) {
+                    mAuthView?.showToast("Ошибка удаления")
+                } else {
+                    mAuthView?.showSnackbar("Заявка сохранена")
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 t.message?.let { Log.e("Error message", it) }
                 mAuthView?.showToast("Something went wrong...Error message: " + t.message)
             }

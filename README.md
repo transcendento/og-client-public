@@ -19,6 +19,8 @@ OrderGoodsClient
   * Navigation
   * Room
   * ViewModel
+  * WorkManager
+  * BroadcastReceiver
 * UI
   * Fragment
   * Layout

@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
-//apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs"
 
@@ -28,15 +27,7 @@ android {
             includeAndroidResources = true
         }
     }
-/*
-    compileOptions {
-        targetCompatibility = 1.8
-        sourceCompatibility = 1.8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-*/
+
     buildFeatures {
         viewBinding true
     }
@@ -47,12 +38,12 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation "androidx.activity:activity-ktx:$rootProject.activityVersion"
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
 
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.recyclerview:recyclerview:1.3.1'
     implementation 'androidx.cardview:cardview:1.0.0'
 
     implementation 'io.reactivex.rxjava2:rxjava:2.2.14'
@@ -69,9 +60,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
 
     implementation "androidx.room:room-ktx:$rootProject.roomVersion"
-    implementation 'androidx.annotation:annotation:1.5.0'
+    implementation 'androidx.annotation:annotation:1.7.0'
 
-    implementation 'com.google.firebase:firebase-functions:20.1.1'
+    implementation 'com.google.firebase:firebase-functions:20.3.1'
     implementation platform('com.google.firebase:firebase-bom:28.4.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
@@ -82,6 +73,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycleVersion"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     //implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    implementation "androidx.work:work-runtime:$rootProject.work"
+    implementation 'androidx.work:work-runtime-ktx:2.8.1'
 
     testImplementation "junit:junit:$rootProject.junitVersion"
 
@@ -94,7 +88,7 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$rootProject.androidxJunitVersion"
 
     //androidTestImplementation "androidx.arch.core:core-testing:$rootProject.archLifecycleVersion"
-    androidTestImplementation 'androidx.test:runner:1.4.0'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
 
     testImplementation "org.robolectric:robolectric:4.3.1"
 

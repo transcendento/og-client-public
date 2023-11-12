@@ -27,8 +27,14 @@ object SharedPreferencesManager {
         get() = sharedPreferences.getString("token", null)
         set(value) = sharedPreferences.edit { putString("token", value) }
 
+    var daysId: String?
+        get() = sharedPreferences.getString("daysid", null)
+        set(value) = sharedPreferences.edit { putString("daysid", value) }
+
     val isLoggedIn: Boolean
         get() = sharedPreferences.getInt("id", -1) != -1
+
+
 
     fun clear() {
         sharedPreferences.edit { clear() }

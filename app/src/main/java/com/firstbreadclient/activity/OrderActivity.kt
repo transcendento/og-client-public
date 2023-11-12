@@ -1,6 +1,7 @@
 package com.firstbreadclient.activity
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,9 +9,9 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.firstbreadclient.R
 import com.firstbreadclient.adapter.ItemClickListener
 import com.firstbreadclient.model.data.Order
@@ -48,7 +49,7 @@ class OrderActivity : AppCompatActivity(), ItemClickListener, InternetConnection
         super.onCreate(savedInstanceState)
         setContentView(R.layout.order_main)
         val toolbar = findViewById<Toolbar>(R.id.authToolbar)
-        setSupportActionBar(toolbar)
+        setActionBar(toolbar)
 
         mDataBundle = intent.extras
         mParentLayout = findViewById(android.R.id.content)
@@ -163,5 +164,11 @@ class OrderActivity : AppCompatActivity(), ItemClickListener, InternetConnection
     override fun onInternetUnavailable() {
         Snackbar.make(mParentLayout!!, resources.getString(R.string.conn_fail), Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+    }
+
+    companion object {
+        fun newIntent(context: Context): Intent {
+            return Intent(context, OrderActivity::class.java)
+        }
     }
 }

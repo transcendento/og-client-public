@@ -6,5 +6,5 @@ import retrofit2.Call
 
 interface ProdInteractor {
     fun getProdData(jwt: String?, daysId: String?): Call<ArrayList<Prod?>?>?
-    fun postProd(prod: List<Prod>): Call<ResponseBody>?
+    fun putProd(jwt: String?, prod: List<Prod>): Call<ResponseBody>?
 }

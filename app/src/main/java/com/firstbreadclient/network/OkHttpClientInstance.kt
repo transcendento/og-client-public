@@ -14,7 +14,7 @@ import com.firstbreadclient.service.LoginService
 import com.firstbreadclient.storage.SharedPreferencesManager
 import okhttp3.OkHttpClient
 import org.greenrobot.eventbus.EventBus
-import java.util.*
+import java.util.Objects
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.X509TrustManager
 
@@ -117,6 +117,10 @@ object OkHttpClientInstance {
                 }
 
                 override fun getPassword(): String? {
+                    return SharedPreferencesManager.password
+                }
+
+                override fun getDaysId(): String? {
                     return SharedPreferencesManager.password
                 }
 

@@ -7,10 +7,15 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.Toolbar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.appcompat.widget.Toolbar
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.work.WorkInfo
+import androidx.work.WorkManager
 import com.firstbreadclient.R
 import com.firstbreadclient.model.data.Prod
 import com.firstbreadclient.mvp.AppModuleProd
@@ -29,6 +34,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import java.util.Objects
 import javax.inject.Inject
+
+private const val TAG_OUTPUT = "OUTPUT"
 
 class ProdActivity : AppCompatActivity(), InternetConnectionListener, ProdView {
     private var mDataBundle: Bundle? = null
@@ -52,7 +59,7 @@ class ProdActivity : AppCompatActivity(), InternetConnectionListener, ProdView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.prod_main)
         val toolbar = findViewById<Toolbar>(R.id.authToolbar)
-        setSupportActionBar(toolbar)
+        //setSupportActionBar(toolbar)
 
         mDataBundle = intent.extras
 
@@ -60,7 +67,7 @@ class ProdActivity : AppCompatActivity(), InternetConnectionListener, ProdView {
 
         parentLayout = findViewById(android.R.id.content)
 
-        mAppBarProd = findViewById(R.id.orderAppBarLayout)
+        //mAppBarProd = findViewById(R.id.orderAppBarLayout)
 
         prodPresenter.bind(this)
 
@@ -70,30 +77,31 @@ class ProdActivity : AppCompatActivity(), InternetConnectionListener, ProdView {
 
         mCntNameStrText.text = intent.getStringExtra("cntnamestr")
 
-/*
-        val mRecyclerView = findViewById<RecyclerView>(R.id.recycler_view_prod_list)
-        //prodAdapter = ProdAdapter(this)
-        val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this@ProdActivity)
-        mRecyclerView.layoutManager = layoutManager
-        mRecyclerView.adapter = prodAdapter
-*/
+        /*
+                val mRecyclerView = findViewById<RecyclerView>(R.id.recycler_view_prod_list)
+                //prodAdapter = ProdAdapter(this)
+                val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this@ProdActivity)
+                mRecyclerView.layoutManager = layoutManager
+                mRecyclerView.adapter = prodAdapter
+        */
 
         //mService = RetrofitInstance.retrofitInstance?.create(GetDataService::class.java)
 
         prodPresenter.prodData()
         //prodData
 
-/*
-        firstViewModel.allProds.observe(owner = this) { prods ->
-            // Update the cached copy of the words in the adapter.
-            prods.let { prodAdapter!!.setProds(it) }
-        }
-*/
+        /*
+                firstViewModel.allProds.observe(owner = this) { prods ->
+                    // Update the cached copy of the words in the adapter.
+                    prods.let { prodAdapter!!.setProds(it) }
+                }
+        */
 
-        val fabOrder = findViewById<FloatingActionButton>(R.id.fab_prod)
-        fabOrder.setOnClickListener { onClick() }
+        val fabProd = findViewById<FloatingActionButton>(R.id.fab_prod)
+        fabProd.setOnClickListener { onClick() }
 
-        val collapsingToolbarLayout = findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbarLayoutProd)
+        val collapsingToolbarLayout =
+            findViewById<CollapsingToolbarLayout>(R.id.collapsingToolbarLayoutProd)
         val appBarLayout = findViewById<AppBarLayout>(R.id.appBarLayoutProd)
         appBarLayout.addOnOffsetChangedListener(object : OnOffsetChangedListener {
             var isShow = true
@@ -104,14 +112,28 @@ class ProdActivity : AppCompatActivity(), InternetConnectionListener, ProdView {
                     scrollRange = appBarLayout.totalScrollRange
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbarLayout.title = intent.getStringExtra("cntkod") + " на " + intent.getStringExtra("daysorderdate")
+                    collapsingToolbarLayout.title =
+                        intent.getStringExtra("cntkod") + " на " + intent.getStringExtra("daysorderdate")
                     isShow = true
                 } else if (isShow) {
-                    collapsingToolbarLayout.title = " " //careful there should a space between double quote otherwise it wont work
+                    collapsingToolbarLayout.title =
+                        " " //careful there should a space between double quote otherwise it wont work
                     isShow = false
                 }
             }
         })
+
+        val workManager = WorkManager.getInstance(application)
+        val outputWorkInfos: LiveData<List<WorkInfo>> =
+            workManager.getWorkInfosByTagLiveData(TAG_OUTPUT)
+        outputWorkInfos.observe(this, workInfosObserver())
+    }
+
+    private fun workInfosObserver(): Observer<List<WorkInfo>> {
+        return Observer {
+
+            prodPresenter.prodData()
+        }
     }
 
     public override fun onPause() {
@@ -149,57 +171,58 @@ class ProdActivity : AppCompatActivity(), InternetConnectionListener, ProdView {
                 startActivity(intent)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
 
-/*
-    private val prodData: Unit
-        get() {
-            val daysId = intent.getStringExtra("daysordermoveid")
-            val jwt = OkHttpClientInstance.getSession()?.getToken()
-            val call = mService!!.getProdData(jwt, daysId)
-            Log.i("URL Called", call?.request()?.url.toString() + "")
-            call?.enqueue(object : Callback<ArrayList<Prod?>?> {
-                override fun onResponse(call: Call<ArrayList<Prod?>?>, response: Response<ArrayList<Prod?>?>) {
-                    if (!response.isSuccessful) {
-                        Toast.makeText(this@ProdActivity, "Ошибка соединения", Toast.LENGTH_SHORT).show()
-                        return
-                    }
-                    mProdList = response.body()
-                    for (prod in mProdList!!) {
-                        if (prod != null) {
-                            firstViewModel.insertProd(prod)
+    /*
+        private val prodData: Unit
+            get() {
+                val daysId = intent.getStringExtra("daysordermoveid")
+                val jwt = OkHttpClientInstance.getSession()?.getToken()
+                val call = mService!!.getProdData(jwt, daysId)
+                Log.i("URL Called", call?.request()?.url.toString() + "")
+                call?.enqueue(object : Callback<ArrayList<Prod?>?> {
+                    override fun onResponse(call: Call<ArrayList<Prod?>?>, response: Response<ArrayList<Prod?>?>) {
+                        if (!response.isSuccessful) {
+                            Toast.makeText(this@ProdActivity, "Ошибка соединения", Toast.LENGTH_SHORT).show()
+                            return
+                        }
+                        mProdList = response.body()
+                        for (prod in mProdList!!) {
+                            if (prod != null) {
+                                firstViewModel.insertProd(prod)
+                            }
                         }
                     }
-                }
 
-                override fun onFailure(call: Call<ArrayList<Prod?>?>, t: Throwable) {
-                    t.message?.let { Log.e("Error message", it) }
-                    Toast.makeText(this@ProdActivity, "Something went wrong...Error message: " + t.message, Toast.LENGTH_SHORT).show()
-                }
-            })
-        }
+                    override fun onFailure(call: Call<ArrayList<Prod?>?>, t: Throwable) {
+                        t.message?.let { Log.e("Error message", it) }
+                        Toast.makeText(this@ProdActivity, "Something went wrong...Error message: " + t.message, Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
 
-    private val prodPost: Unit
-        get(){
-            val allProd = firstViewModel.allProds.value
-            val call = allProd?.let { mService!!.postProd(it) }
-            call?.enqueue(object: Callback<ResponseBody> {
-                override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
-                ) {
-                    TODO("Not yet implemented")
-                }
+        private val prodPost: Unit
+            get(){
+                val allProd = firstViewModel.allProds.value
+                val call = allProd?.let { mService!!.postProd(it) }
+                call?.enqueue(object: Callback<ResponseBody> {
+                    override fun onResponse(
+                        call: Call<ResponseBody>,
+                        response: Response<ResponseBody>
+                    ) {
+                        TODO("Not yet implemented")
+                    }
 
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
+                    override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                        TODO("Not yet implemented")
+                    }
 
-            })
-        }
-*/
+                })
+            }
+    */
 
     override fun putIntent(): Intent? {
         return intent
@@ -210,8 +233,8 @@ class ProdActivity : AppCompatActivity(), InternetConnectionListener, ProdView {
     }
 
     private fun onClick() {
-        prodPresenter.prodPost()
-        mAppBarProd!!.setExpanded(false)
+        prodPresenter.prodPut()
+        //mAppBarProd!!.setExpanded(false)
     }
 
     override fun onInternetUnavailable() {}
@@ -233,5 +256,6 @@ class ProdActivity : AppCompatActivity(), InternetConnectionListener, ProdView {
             .setAction("Action", null).show()
 
     }
+
 
 }

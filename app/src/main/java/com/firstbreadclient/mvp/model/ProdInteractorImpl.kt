@@ -20,7 +20,7 @@ class ProdInteractorImpl(internetConnectionListener: InternetConnectionListener?
         return mService?.getProdData(jwt, daysId)
     }
 
-    override fun postProd(prod: List<Prod>): Call<ResponseBody>? {
-        return mService?.postProd(prod)
+    override fun putProd(jwt: String?, prod: List<Prod>): Call<ResponseBody>? {
+        return mService?.putProd(jwt, prod)
     }
 }

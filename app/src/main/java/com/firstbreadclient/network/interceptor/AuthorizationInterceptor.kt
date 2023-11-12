@@ -1,7 +1,6 @@
 package com.firstbreadclient.network.interceptor
 
 import android.util.Base64
-import com.firstbreadclient.network.OkHttpClientInstance
 import com.firstbreadclient.network.result.LoginResult
 import com.firstbreadclient.network.result.UIEvent
 import com.firstbreadclient.network.security.Authorization
@@ -29,7 +28,8 @@ class AuthorizationInterceptor(private val mSession: Session) : Interceptor {
         mRequest = chain.request()
         mMethod = mRequest!!.method
 
-        if (mSession.isLoggedIn() && mSession.getService() != null && mRequest!!.method != "POST") {
+        //if (mSession.isLoggedIn() && mSession.getService() != null && mRequest!!.method != "POST") {
+        if (mSession.isLoggedIn() && mSession.getService() != null) {
             if (mResponse!!.code == 401 || mResponse!!.code == 403) {
                 val userNameObservable = Observable.just(mSession.getCntkod())
                 val passwordObservable = Observable.just(mSession.getPassword())

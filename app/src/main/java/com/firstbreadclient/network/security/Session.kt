@@ -11,5 +11,6 @@ interface Session {
     fun getCntkod(): String?
     fun savePassword(password: String?)
     fun getPassword(): String?
+    fun getDaysId(): String?
     fun invalidate()
 }

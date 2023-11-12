@@ -52,9 +52,10 @@ class ProdPresenter @Inject constructor(private var prodInteractor: ProdInteract
         })
     }
 
-    fun prodPost() {
+    fun prodPut() {
         val allProd = mProdView?.putViewModel()?.allProds?.value
-        val call = allProd?.let { prodInteractor.postProd(it) }
+        val jwt = OkHttpClientInstance.getSession()?.getToken()
+        val call = allProd?.let { prodInteractor.putProd(jwt, it) }
         call?.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(
                 call: Call<ResponseBody>,

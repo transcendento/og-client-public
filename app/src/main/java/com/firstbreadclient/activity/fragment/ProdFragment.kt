@@ -18,6 +18,8 @@ import com.firstbreadclient.room.FirstApplication
 import com.firstbreadclient.room.FirstViewModel
 import com.firstbreadclient.room.FirstViewModelFactory
 
+//private const val TAG_OUTPUT = "OUTPUT"
+
 class ProdFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +63,21 @@ class ProdFragment : Fragment() {
 
         val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(this.activity)
         bindingProdFragment.recyclerViewProd.layoutManager = layoutManager
+
+        /*
+                val daysId = savedInstanceState?.getString("daysordermoveid")
+
+                val data: Data = Data.Builder()
+                    .putString("daysordermoveid", daysId)
+                    .build()
+
+                val workRequest = OneTimeWorkRequest
+                    .Builder(GetDataWorker::class.java)
+                    .addTag(TAG_OUTPUT)
+                    .setInputData(data)
+                    .build()
+                WorkManager.getInstance(application).enqueue(workRequest)
+        */
 
         return bindingProdFragment.root
     }

@@ -27,6 +27,9 @@ interface GetDataService {
     @POST("api/auth/signin")
     fun loginAccount(@Body registration: Registration?): Call<Authorization?>?
 
-    @POST("api/ogs/prod")
-    fun postProd(@Body prod: List<Prod>): Call<ResponseBody>
+    @PUT("api/ogs/prod")
+    fun putProd(@Header("Authorization") jwt: String?, @Body prod: List<Prod>): Call<ResponseBody>
+
+    @DELETE("api/ogs/prod/del")
+    fun delProd(@Header("Authorization") jwt: String?): Call<ResponseBody>
 }
