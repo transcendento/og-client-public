@@ -2,8 +2,8 @@
 
 buildscript {
     ext.kotlinVersion = '1.8.10'
-    ext.navigationVersion = '2.4.1'
-    ext.gradleVersion = '7.4.2'
+    ext.navigationVersion = '2.5.0'
+    ext.gradleVersion = '8.2.2'
     ext.dataBindingCompilerVersion = gradleVersion
 
     ext {
@@ -53,4 +53,5 @@ ext {
     coreTestingVersion = '2.2.0'
     androidxJunitVersion = '1.1.5'
     work = "2.8.1"
+    nav_version = "2.7.6"
 }

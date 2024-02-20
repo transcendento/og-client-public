@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.fragment.NavHostFragment
 import com.firstbreadclient.R
 import com.firstbreadclient.activity.fragment.ProdFragment
+import com.firstbreadclient.compose.RegActivity
 import com.firstbreadclient.eventbus.NetworkEvent
 import com.firstbreadclient.firebase.FirebaseFunctionUtils
 import com.firstbreadclient.firebase.OnGetServerTime
@@ -124,8 +125,14 @@ class AuthActivity : AppCompatActivity(), InternetConnectionListener, Authentica
                 //authPresenter.prodDel()
                 authPresenter.prodPut()
             } else {
+/*
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent, mDataBundle)
+*/
+
+                val intent = Intent(this, RegActivity::class.java)
+                startActivity(intent, mDataBundle)
+
             }
         }
 

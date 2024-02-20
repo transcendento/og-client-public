@@ -1,8 +1,8 @@
 package com.firstbreadclient.network
 
+import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
-import androidx.appcompat.app.AppCompatActivity
 import com.firstbreadclient.eventbus.NetworkEvent
 import com.firstbreadclient.network.interceptor.AuthorizationInterceptor
 import com.firstbreadclient.network.interceptor.NetworkConnectionInterceptor
@@ -71,7 +71,7 @@ object OkHttpClientInstance {
     }
 
     private fun isInternetAvailable(): Boolean {
-        val connectivityManager = (mInternetConnectionListener as AppCompatActivity?)!!
+        val connectivityManager = (mInternetConnectionListener as Activity?)!!
             .getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = Objects.requireNonNull(connectivityManager).activeNetworkInfo
         return activeNetworkInfo != null && activeNetworkInfo.isConnected
@@ -80,7 +80,7 @@ object OkHttpClientInstance {
     fun setAuthenticationListener(service: LoginService?, listener: AuthenticationListener?) {
         mAuthenticationListener = listener
         mService = service
-        SharedPreferencesManager.init(mAuthenticationListener as AppCompatActivity)
+        SharedPreferencesManager.init(mAuthenticationListener as Activity)
     }
 
     fun getSession(): Session? {

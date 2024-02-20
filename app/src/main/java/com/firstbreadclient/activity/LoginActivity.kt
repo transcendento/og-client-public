@@ -28,7 +28,7 @@ import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
+import java.util.Objects
 
 class LoginActivity : AppCompatActivity(), InternetConnectionListener, AuthenticationListener {
     private var mLoginLayout: TextInputLayout? = null
@@ -77,7 +77,8 @@ class LoginActivity : AppCompatActivity(), InternetConnectionListener, Authentic
 
         val uiResultObservable = Observable.combineLatest(
             userNameObservable,
-            passwordObservable, { cntkod: String?, password: String? -> UIEvent(cntkod, password) })
+            passwordObservable
+        ) { cntkod: String?, password: String? -> UIEvent(cntkod, password) }
 
         mEditCompositeDisposable.add(
             uiResultObservable.subscribe { ui: UIEvent ->
